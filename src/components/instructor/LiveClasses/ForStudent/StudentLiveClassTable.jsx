@@ -80,7 +80,6 @@ const handleJoin = (liveClass) => {
     const meetingId = liveClass.meeting_id;
     const passcode = meetingInfo.password || "";
 
-  
     if (!meetingId) {
 
       toast.error("Meeting ID is missing. Please check the meeting details.");
@@ -88,10 +87,12 @@ const handleJoin = (liveClass) => {
     }
   
     if (!passcode) {
-      console.log(passcode);
+      console.log(passcode,"passcode hu mai ");
         toast.error("Invalid user or missing password for the meeting. Please check the credentials.");
       return;
     }
+    console.log(`https://zoom.us/wc/${meetingId}/join?pwd=${encodeURIComponent(passcode)}`,"mai zoom");
+
   
     // Construct the Zoom meeting URL
     const zoomUrl = `https://zoom.us/wc/${meetingId}/join?pwd=${encodeURIComponent(passcode)}`;

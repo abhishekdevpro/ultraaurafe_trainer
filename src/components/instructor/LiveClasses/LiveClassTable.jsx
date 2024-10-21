@@ -19,6 +19,7 @@ const TrainerLiveClassTable = () => {
   const [isCoursesLoaded, setIsCoursesLoaded] = useState(false);
   const [editingClassId, setEditingClassId] = useState(null);
   const [activeMeetingUrl, setActiveMeetingUrl] = useState("");
+  const [passcode,setPasscode] = useState("")
 
   const trainerToken = localStorage.getItem("trainerToken");
  console.log(isCoursesLoaded);
@@ -171,6 +172,8 @@ const TrainerLiveClassTable = () => {
   
     const meetingId = liveClass.meeting_id;
     const passcode = meetingInfo.password || "";
+    console.log(passcode,"mai hu ");
+    console.log(meetingInfo.pwd,"mai hu pwd ");
   
     if (!meetingId) {
       toast.error("Meeting ID is missing. Please check the meeting details.");
@@ -178,12 +181,16 @@ const TrainerLiveClassTable = () => {
     }
   
     if (!passcode) {
+      console.log(passcode,"mai hu passcode");
         toast.error("Invalid user or missing password for the meeting. Please check the credentials.");
       return;
     }
+
+    setPasscode(passcode)
   
     // Construct the Zoom meeting URL
-    const zoomUrl = `https://zoom.us/wc/${meetingId}/join?pwd=${encodeURIComponent(passcode)}`;
+    const zoomUrl = `https://zoom.us/wc/${meetingId}/join?pwd=${passcode}`;
+    console.log(zoomUrl,"mai hu zoom");
     setActiveMeetingUrl(zoomUrl);
     setShowMeetingModal(true);
   
@@ -267,6 +274,7 @@ const TrainerLiveClassTable = () => {
         showMeetingModal={showMeetingModal}
         handleMeetingClose={handleMeetingClose}
         activeMeetingUrl={activeMeetingUrl}
+        passcode = {passcode}
       />
 
       <Modal show={show} onHide={handleClose} centered>
