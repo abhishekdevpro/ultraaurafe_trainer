@@ -526,7 +526,7 @@ export function InstructorHeader() {
   return (
     <HeaderWrapper navbar={navbar}>
       <NavbarContainer>
-        <Link to="/home">
+        <Link to="https://ultraaura.education/home">
           <Logo src={logo5} alt="Logo" />
         </Link>
         <MenuButton onClick={toggleMobileMenu} aria-label="Open menu">
