@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StickyBox from "react-sticky-box";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import profilelogo from "../../../assets/img/profile-pro.png"
@@ -11,7 +11,7 @@ export default function InstructorSidebar() {
   const [profile, setProfile] = useState(null); // State to store profile data
   const [loading, setLoading] = useState(true); // State to manage loading state
   const [error, setError] = useState(null); // State to manage errors
-
+  const navigate = useNavigate()
   useEffect(() => {
     // Function to fetch profile data
     const token = localStorage.getItem('trainerToken');
@@ -37,7 +37,11 @@ export default function InstructorSidebar() {
 
   if (loading) return <p>Loading...</p>; // Display a loading message while fetching
   if (error) return <p>Error: {error.message}</p>; // Display an error message if the fetch fails
-
+  const handleLogout = () => {
+    localStorage.removeItem('trainerToken');
+    navigate('https://trainers.ultraaura.education/');
+    window.location.href= 'https://trainers.ultraaura.education/';
+  };
 
   return (
     <div className="col-xl-3 col-lg-3 theiaStickySidebar">
@@ -215,7 +219,7 @@ export default function InstructorSidebar() {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="/home" className="nav-link">
+                <Link onClick={handleLogout} className="nav-link">
                   <i className="bx bxs-log-out" />
                   Logout
                 </Link>

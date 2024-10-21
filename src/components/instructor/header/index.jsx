@@ -515,8 +515,8 @@ export function InstructorHeader() {
 
   const handleLogout = () => {
     localStorage.removeItem('trainerToken');
-    navigate('/login');
-    window.location.href= '/login';
+    navigate('https://trainers.ultraaura.education/');
+    window.location.href= 'https://trainers.ultraaura.education/';
   };
 
   if (!trainerData) {
