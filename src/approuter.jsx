@@ -175,7 +175,12 @@ const Approuter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+       { localStorage.getItem("trainerToken")? 
+         <Route
+         path="/instructor/instructor-dashboard"
+         element={<Dashboard />}
+       />
+       :<Route path="/" element={<Login />} />}
         <Route path="/home2" element={<Home2 />} />
         <Route path="/home3" element={<Home3 />} />
         <Route path="/home4" element={<Home4 />} />
