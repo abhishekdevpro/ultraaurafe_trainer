@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import BlogDetails from "./components/blog/blogDetails";
 import BlogGrid from "./components/blog/blogGrid";
 import BlogList from "./components/blog/bloglist";
@@ -172,15 +172,14 @@ import PaymentFailedPage from "./components/pages/error/Paymentfailed.jsx";
 import ScheduleLiveClass from "./components/instructor/LiveClasses/ScheduleLiveClass.jsx";
 import JoinLiveClass from "./components/instructor/LiveClasses/ForStudent/JoinLiveClasses.jsx";
 const Approuter = () => {
+  const trainerToken = localStorage.getItem("trainerToken")
   return (
     <BrowserRouter>
       <Routes>
-       { localStorage.getItem("trainerToken")? 
-         <Route
-         path="/instructor/instructor-dashboard"
-         element={<Dashboard />}
-       />
-       :<Route path="/" element={<Login />} />}
+      <Route
+        path="/"
+        element={trainerToken ? <Navigate to="/instructor/instructor-dashboard" /> : <Login />}
+      />
         <Route path="/home2" element={<Home2 />} />
         <Route path="/home3" element={<Home3 />} />
         <Route path="/home4" element={<Home4 />} />
