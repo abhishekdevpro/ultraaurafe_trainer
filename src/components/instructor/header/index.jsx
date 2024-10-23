@@ -261,6 +261,7 @@ import { Home, LogOut, User, Menu, X } from "react-feather";
 import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import logo5 from "../../../assets/logo5.png";
+import { toast } from "react-toastify";
 
 const HeaderWrapper = styled.header`
   position: fixed;
@@ -464,17 +465,58 @@ export function InstructorHeader() {
   const [trainerData, setTrainerData] = useState(null);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchTrainerData = async () => {
+  //     try {
+  //       const token = localStorage.getItem("trainerToken");
+  //       const response = await fetch('https://api.novajobs.us/api/trainers/profile', {
+  //         method: 'GET',
+  //         headers: {
+  //           'Authorization': `${token}`,
+  //           'Content-Type': 'application/json'
+  //         }
+  //       });
+  //       const result = await response.json();
+  //       if (result.status === 'success') {
+  //         setTrainerData(result.data);
+  //       } else {
+  //         console.error(result.message);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching trainer data:', error);
+  //     }
+  //   };
+
+  //   fetchTrainerData();
+  // }, []);
   useEffect(() => {
     const fetchTrainerData = async () => {
       try {
         const token = localStorage.getItem("trainerToken");
+        if (!token) {
+          console.error('No token found');
+          navigate('/')
+          return;
+        }
+  
         const response = await fetch('https://api.novajobs.us/api/trainers/profile', {
           method: 'GET',
           headers: {
-            'Authorization': `${token}`,
+            'Authorization': `${token}`, 
             'Content-Type': 'application/json'
           }
         });
+  
+        // Check if the response status is 401 (Unauthorized)
+        console.log(response.status,"ststs");
+        if (response.status === 401) {
+          toast.error('Token is expired or invalid');
+          localStorage.removeItem("trainerToken"); 
+          navigate('/')
+          window.location.href = '/'
+          return;
+        }
+  
         const result = await response.json();
         if (result.status === 'success') {
           setTrainerData(result.data);
@@ -485,10 +527,10 @@ export function InstructorHeader() {
         console.error('Error fetching trainer data:', error);
       }
     };
-
+  
     fetchTrainerData();
   }, []);
-
+  
   const toggleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   };

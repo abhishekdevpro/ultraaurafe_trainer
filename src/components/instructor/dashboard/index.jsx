@@ -1,44 +1,44 @@
 
-import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect } from "react";
 import Footer from "../../footer";
 import { InstructorHeader } from "../../instructor/header";
 import InstructorSidebar from "../sidebar";
 import { Link, useParams } from "react-router-dom";
 import CourseTable from "./CourseList";
-import axios from 'axios';
+// import axios from 'axios';
 
 export const Dashboard = () => {
   const { id } = useParams();
   console.log(id, "trainer id");
 
   // Define the state variable to store courses
-  const [allCourses, setAllCourses] = useState([]);
-  const [error, setError] = useState(null);
+  // const [allCourses, setAllCourses] = useState([]);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchAllCourses = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.novajobs.us/api/trainers/all-courses",
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
-        );
-        // Update the state with the fetched courses
-        setAllCourses(response.data);
-      } catch (error) {
-        console.error("Error fetching all courses:", error);
-        setError("Error fetching all courses.");
-      }
-    };
-    fetchAllCourses();
-  }, []);
+  // useEffect(() => {
+  //   const fetchAllCourses = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://api.novajobs.us/api/trainers/all-courses",
+  //         {
+  //           headers: {
+  //             Authorization: localStorage.getItem("trainertoken"),
+  //           },
+  //         }
+  //       );
+  //       // Update the state with the fetched courses
+  //       setAllCourses(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching all courses:", error);
+  //       setError("Error fetching all courses.");
+  //     }
+  //   };
+  //   fetchAllCourses();
+  // }, []);
 
-  if (error) {
-    return <div className="alert alert-danger">{error}</div>;
-  }
+  // if (error) {
+  //   return <div className="alert alert-danger">{error}</div>;
+  // }
 
   return (
     <div className="main-wrapper">
@@ -76,8 +76,7 @@ export const Dashboard = () => {
             {/* Student Dashboard */}
             <div className="col-xl-9 col-lg-9">
               {/* Dashboard Grid */}
-              <div className="row justify-content-center">
-                {/* Render the courses */}
+              {/* <div className="row justify-content-center">
                 {allCourses.length > 0 ? (
                   <div className="row">
                     {allCourses.map((course) => (
@@ -85,16 +84,14 @@ export const Dashboard = () => {
                         <div className="course-box flex-fill">
                           <h3>{course.title}</h3>
                           <p>{course.description}</p>
-                          {/* Add more course details here */}
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
                   ""
-                  // <p>No courses available</p>
                 )}
-              </div>
+              </div> */}
               {/* /Dashboard Grid */}
               <CourseTable />
             </div>

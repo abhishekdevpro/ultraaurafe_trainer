@@ -10,11 +10,27 @@ const CourseTable = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   // Retrieve the vendor token or trainer token from local storage
+  //   const token =  localStorage.getItem('trainerToken');
+  //   axios
+  //     .get('https://api.novajobs.us/api/trainers/courses', {
+  //       headers: {
+  //         Authorization: `${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data.data);
+  //       setCourses(response.data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('There was an error fetching the courses!', error);
+  //       setError('Failed to fetch courses. Please try again.');
+  //     });
+  // }, []);
   useEffect(() => {
-    // Retrieve the vendor token or trainer token from local storage
-    const token = localStorage.getItem('vendorToken') || localStorage.getItem('trainerToken') || localStorage.getItem('adminToken');
-
-    // Fetching data from the API with token in headers
+    const token = localStorage.getItem('trainerToken');
+    
     axios
       .get('https://api.novajobs.us/api/trainers/courses', {
         headers: {
@@ -22,15 +38,25 @@ const CourseTable = () => {
         },
       })
       .then((response) => {
+        if(response.status===401){
+          localStorage.removeItem('trainerToken');
+          window.location.href = '/'
+        }
         console.log(response.data.data);
         setCourses(response.data.data);
       })
       .catch((error) => {
-        console.error('There was an error fetching the courses!', error);
-        setError('Failed to fetch courses. Please try again.');
+        if (error.response && error.response.status === 401) {
+          console.error('Unauthorized, token may be expired');
+          localStorage.removeItem('trainerToken');
+          window.location.href = '/'
+        } else {
+          console.error('There was an error fetching the courses!', error);
+          setError('Failed to fetch courses. Please try again.');
+        }
       });
   }, []);
-
+  
   console.log(courses, 'courses hu');
 
   // Function to handle course edit

@@ -12,29 +12,52 @@ export default function InstructorSidebar() {
   const [loading, setLoading] = useState(true); // State to manage loading state
   const [error, setError] = useState(null); // State to manage errors
   const navigate = useNavigate()
-  useEffect(() => {
-    // Function to fetch profile data
-    const token = localStorage.getItem('trainerToken');
 
+  useEffect(() => {
+    const token = localStorage.getItem('trainerToken');
+    
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+  
     const fetchProfile = async () => {
       try {
         const response = await axios.get("https://api.novajobs.us/api/trainers/profile", {
           headers: {
-            Authorization: `${token}`,
+            Authorization: `${token}`, 
           }
         });
-        console.log(response, "profile")
-        setProfile(response.data.data); // Update state with fetched data
+  
+        // Log the response to inspect
+  
+        // Check if the response status is 401
+        if (response.status === 401) {
+          console.error('Token has expired or is invalid');
+          localStorage.removeItem('trainerToken'); 
+          navigate('/')
+          window.location.href = '/'
+        } else {
+          setProfile(response.data.data); 
+        }
       } catch (error) {
-        setError(error); // Handle error if the API request fails
+        if (error.response && error.response.status === 401) {
+          console.error('Unauthorized, token may be expired');
+          localStorage.removeItem('trainerToken');
+          navigate('/')
+          window.location.href = '/'
+
+        } else {
+          setError(error); 
+        }
       } finally {
-        setLoading(false); // Set loading to false when the request is complete
+        setLoading(false);
       }
     };
-
+  
     fetchProfile();
-  }, []); // Empty dependency array means this useEffect runs once on mount
-
+  }, []); 
+  
   if (loading) return <p>Loading...</p>; // Display a loading message while fetching
   if (error) return <p>Error: {error.message}</p>; // Display an error message if the fetch fails
   const handleLogout = () => {
