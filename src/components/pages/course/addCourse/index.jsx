@@ -39,7 +39,7 @@ const AddCourse = () => {
     course_price: 0,
     after_discount_price: 0,
     coupon_code: "",
-    course_language: "",
+    course_language_name: "",
     discount_percent: 0,
     learning_objectives: "",
     target_audience: "",
@@ -62,28 +62,61 @@ const AddCourse = () => {
   //     console.warn(`No option selected for ${name}`);
   //   }
   // };
-  const handleSelectChange = (name) => (selectedOptions) => {
-    if (selectedOptions && selectedOptions.length > 0) {
-      const selectedLabels = selectedOptions.map((option) => option.label);
-      const selectedValues = selectedOptions.map((option) => option.value);
+  // const handleSelectChange = (name) => (selectedOptions) => {
+  //   if (selectedOptions && selectedOptions.length > 0) {
+  //     const selectedLabels = selectedOptions.map((option) => option.label);
+  //     const selectedValues = selectedOptions.map((option) => option.value);
   
-      setCourseData((prevData) => ({
-        ...prevData,
-        [`${name}_names`]: selectedLabels, // Store the array of selected labels
-        [`${name}_ids`]: selectedValues, // Store the array of selected ids
-      }));
+  //     setCourseData((prevData) => ({
+  //       ...prevData,
+  //       [`${name}_names`]: selectedLabels, // Store the array of selected labels
+  //       [`${name}_ids`]: selectedValues, // Store the array of selected ids
+  //     }));
   
-      console.log(`Updated ${name}:`, selectedOptions); // Debugging log
+  //     console.log(`Updated ${name}:`, selectedOptions); // Debugging log
+  //   } else {
+  //     console.warn(`No options selected for ${name}`);
+  //     setCourseData((prevData) => ({
+  //       ...prevData,
+  //       [`${name}_names`]: [], // Reset to empty array if no selection
+  //       [`${name}_ids`]: [], // Reset to empty array if no selection
+  //     }));
+  //   }
+  // };
+  const handleSelectChange = (name) => (selectedOption) => {
+    if (name === "course_language_name") {
+      // Handle single selection for language
+      if (selectedOption) {
+        setCourseData(prevData => ({
+          ...prevData,
+          course_language_name: selectedOption.value // Store the value directly
+        }));
+      } else {
+        setCourseData(prevData => ({
+          ...prevData,
+          course_language_name: "" // Reset if no selection
+        }));
+      }
     } else {
-      console.warn(`No options selected for ${name}`);
-      setCourseData((prevData) => ({
-        ...prevData,
-        [`${name}_names`]: [], // Reset to empty array if no selection
-        [`${name}_ids`]: [], // Reset to empty array if no selection
-      }));
+      // Handle multi-selection for other fields
+      if (selectedOption && selectedOption.length > 0) {
+        const selectedLabels = selectedOption.map((option) => option.label);
+        const selectedValues = selectedOption.map((option) => option.value);
+    
+        setCourseData((prevData) => ({
+          ...prevData,
+          [`${name}_names`]: selectedLabels,
+          [`${name}_ids`]: selectedValues,
+        }));
+      } else {
+        setCourseData((prevData) => ({
+          ...prevData,
+          [`${name}_names`]: [],
+          [`${name}_ids`]: [],
+        }));
+      }
     }
   };
-  
   
   const handleEditorChange = (value) => {
     setCourseData({ ...courseData, course_description: value });
@@ -294,8 +327,11 @@ const AddCourse = () => {
       });
   }, []);
 
-  const languageOptions = [{ id: 1, label: "English", value: "English" }];
-
+  // const languageOptions = [{ id: 1, name: "English", value: "English" }];
+  const languageOptions = [
+    { label: "English", value: "English" }
+  ];
+  
   const selectStyle = {
     menu: (base) => ({ ...base, marginTop: "0px" }),
     menuList: (base) => ({ ...base, padding: "0" }),
@@ -620,7 +656,7 @@ const AddCourse = () => {
                                 <Select
                                   options={languageOptions}
                                   onChange={handleSelectChange(
-                                    "course_language"
+                                    "course_language_name"
                                   )}
                                   placeholder="Select Language"
                                   styles={selectStyle}
