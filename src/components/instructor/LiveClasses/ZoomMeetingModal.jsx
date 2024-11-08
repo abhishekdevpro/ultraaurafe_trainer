@@ -81,7 +81,7 @@
 // export default ZoomMeetingModal;
 
 import React, { useState, useEffect } from 'react';
-import { Modal, Alert, Spinner } from 'react-bootstrap';
+import { Modal, Spinner } from 'react-bootstrap';
 import { X, Maximize, Minimize } from 'lucide-react';
 import PropTypes from 'prop-types';
 
@@ -160,15 +160,15 @@ const ZoomMeetingModal = ({
           </div>
         </div>
       </Modal.Header>
-
+      {console.log(permissionError)}
       <Modal.Body className="p-0">
-        {permissionError && (
+        {/* {permissionError && (
           <Alert variant="danger" className="m-3">
             <Alert.Heading className="h6">Permission Error</Alert.Heading>
             Please allow camera and microphone access to join the meeting.
             Check your browser settings if permissions are blocked.
           </Alert>
-        )}
+        )} */}
 
         {activeMeetingUrl ? (
           <div 
