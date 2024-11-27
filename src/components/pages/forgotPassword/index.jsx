@@ -1,13 +1,13 @@
 
 import React, { useState } from "react";
 // import { LoginImg } from "../../imagepath";
-import logo5 from '../../../assets/logo5.png'
+import logo5 from '../../../assets/Ultra_Aura.png'
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import OwlCarousel from "react-owl-carousel";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify"; 
+import { toast, ToastContainer } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <>
+    <> <ToastContainer />
       <div className="main-wrapper">
         <div className="row">
           {/* Login Banner */}
@@ -116,7 +116,7 @@ const ForgotPassword = () => {
                 <div className="img-logo">
                   {/* <img src={logo5} className="img-fluid" alt="Logo" /> */}
                   <div className="back-home">
-                    <Link to="/home">Back to Home</Link>
+                    <Link to="/">Back to Home</Link>
                   </div>
                 </div>
                 <h1>Forgot Password ?</h1>

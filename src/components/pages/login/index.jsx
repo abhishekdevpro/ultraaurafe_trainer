@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import OwlCarousel from "react-owl-carousel";
@@ -9,7 +9,8 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
-import logo5 from "../../../assets/logo5.png";
+// import logo5 from "../../../assets/logo5.png";
+import logo5 from "../../../assets/Ultra_Aura.png";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,20 @@ const Login = () => {
   const [passwordInput, setPasswordInput] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  useEffect(() => {
+    // Check session storage for a reload flag
+    const hasReloaded = sessionStorage.getItem("hasReloaded");
 
+    if (!hasReloaded) {
+      console.log("Login page is rendering and reloading once!");
+
+      // Set the reload flag in session storage
+      sessionStorage.setItem("hasReloaded", "true");
+
+      // Reload the page
+      window.location.reload();
+    }
+  }, []);
   const handlePasswordChange = (evt) => {
     setPasswordInput(evt.target.value);
   };

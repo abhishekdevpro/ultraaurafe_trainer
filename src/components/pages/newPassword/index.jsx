@@ -3,10 +3,11 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import OwlCarousel from "react-owl-carousel";
 import { LoginImg} from "../../imagepath";
-import logo from '../../../assets/logo5.png'
+import logo from '../../../assets/Ultra_Aura.png'
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Import toast for notifications
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"; // Import toast for notifications
 
 const NewPassword = () => {
     const [eye, setEye] = useState(true);
@@ -104,7 +105,7 @@ const NewPassword = () => {
     };
 
     return (
-        <>
+        <> <ToastContainer />
             <div className="main-wrapper">
                 <div className="row">
                     {/* Login Banner */}
@@ -133,7 +134,7 @@ const NewPassword = () => {
                                 <div className="img-logo">
                                     <img src={logo} className="img-fluid" alt="Logo" />
                                     <div className="back-home">
-                                        <Link to="#">Back to Home</Link>
+                                        <Link to="/">Back to Home</Link>
                                     </div>
                                 </div>
                                 <h1>Setup New Password</h1>
