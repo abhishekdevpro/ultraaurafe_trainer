@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Icon19, Icon20 } from "../imagepath";
-import logo5 from './logo5.png';
+// import logo5 from './logo5.png';
+import logo5 from "../../assets/Ultra_Aura.png";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -310,12 +311,16 @@ const Footer = () => {
                   <div className="footer-address">
                     <img src={Icon20} alt="" />
                     <p>
-                      1509 Lady St, Columbia, SC 29201,<br /> United States
+                    P O Box 1084, Columbia, SC 29202
                     </p>
                   </div>
                   <p>
                     <img src={Icon19} alt="" />
                     info@ultraaura.education
+                  </p>
+                  <p>
+                    <img src={Icon19} alt="" />
+                    hr@ultraaura.education
                   </p>
                 </FooterContactInfo>
                 <FooterLogo2>

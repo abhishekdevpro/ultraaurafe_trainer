@@ -162,7 +162,7 @@ const PrivacyPolicy = () => {
                   <h3>Contact Us</h3>
                   <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:
                     <h2>Ultra Aura Education, Inc.
-                      1509 Lady St, Columbia, SC 29201,</h2>
+                    P O Box 1084, Columbia, SC 29202</h2>
                   </p>
                 </div>
               </div>

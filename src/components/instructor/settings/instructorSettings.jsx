@@ -506,7 +506,8 @@ import InstructorSidebar from "../sidebar";
 import Footer from "../../footer";
 import SettingsPageHeader from "./settingsPageHeader";
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { InstructorHeader } from "../header";
 
 const InstructorSettings = () => {
@@ -685,6 +686,9 @@ const InstructorSettings = () => {
   };
 
   return (
+    <>
+    <ToastContainer />
+    
     <div className="main-wrapper">
       <InstructorHeader activeMenu={"Settings"} />
       <div className="breadcrumb-bar breadcrumb-bar-info">
@@ -938,6 +942,7 @@ const InstructorSettings = () => {
       </div>
       <Footer />
     </div>
+    </>
   );
 };
 

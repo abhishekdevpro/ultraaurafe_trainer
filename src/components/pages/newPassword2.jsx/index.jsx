@@ -5,7 +5,8 @@ import OwlCarousel from "react-owl-carousel";
 import { LoginImg, logo } from "../../imagepath";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { toast } from 'react-toastify'; // Import toast for notifications
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"; // Import toast for notifications
 
 const NewPassword2 = () => {
     const [eye, setEye] = useState(true);
@@ -16,6 +17,8 @@ const NewPassword2 = () => {
     });
     const { token } = useParams(); // Get token from URL parameters
     const navigate = useNavigate(); // For navigation after password reset
+
+    
 
     // Function to toggle password visibility
     const onEyeClick = () => {
@@ -90,7 +93,7 @@ const NewPassword2 = () => {
                 }
             );
 
-            if (response.data.status === 200) {
+            if (response.data) {
                 toast.success("Password reset successfully!");
                 navigate("/login"); // Redirect to login page
             } else {
@@ -104,6 +107,7 @@ const NewPassword2 = () => {
 
     return (
         <>
+        <ToastContainer />
             <div className="main-wrapper">
                 <div className="row">
                     {/* Login Banner */}
@@ -132,7 +136,7 @@ const NewPassword2 = () => {
                                 <div className="img-logo">
                                     <img src={logo} className="img-fluid" alt="Logo" />
                                     <div className="back-home">
-                                        <Link to="#">Back to Home</Link>
+                                        <Link to="/">Back to Home</Link>
                                     </div>
                                 </div>
                                 <h1>Setup New Password</h1>

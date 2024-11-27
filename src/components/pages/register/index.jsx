@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 // import {NetIcon1, NetIcon2 } from "../../imagepath";
 import axios from "axios";
-import logo5 from '../../../assets/logo5.png'
-import { toast } from "react-toastify";
+import logo5 from '../../../assets/Ultra_Aura.png'
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 const hasNumber = (value) => {
   return new RegExp(/[0-9]/).test(value);
 };
@@ -367,7 +369,7 @@ const Register = () => {
   // }, []);
 
   return (
-    <>
+    <><ToastContainer />
       <div className="main-wrapper log-wrap">
         <div className="row">
           {/* Login Banner */}
@@ -430,10 +432,10 @@ const Register = () => {
                 <div className="img-logo">
                   {/* <img src={logo5} className="img-fluid" alt="Logo" /> */}
                   <div className="back-home">
-                    <Link to="https://trainers.ultraaura.education/">Back to Home</Link>
+                    <Link to="/">Back to Home</Link>
                   </div>
                 </div>
-                <h1>Sign up As an Trainer</h1>
+                <h1>Sign up As a Trainer</h1>
                 <form onSubmit={handleSubmit}>
                  
                   <div className="input-block">
