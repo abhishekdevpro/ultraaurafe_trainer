@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import FeatherIcon from 'feather-icons-react';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import dummy from '../../../assets/Online Course.png'
 
 const CourseTable = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   // Retrieve the vendor token or trainer token from local storage
@@ -60,18 +60,19 @@ const CourseTable = () => {
   console.log(courses, 'courses hu');
 
   // Function to handle course edit
-  const handleEditCourse = (courseId, isActive) => {
-    if (localStorage.getItem("adminToken") || isActive) {
-      // Admin can edit the course regardless of the active status
-      // or if the course is active, allow the user to edit it
-      navigate(`/course-details/${courseId}`);
-      console.log(`Edit course with ID: ${courseId}`);
-    } else {
-      console.log(`Course with ID: ${courseId} is not active and cannot be edited.`);
-      // Optionally show an alert or message to the user
-      toast.error('This course is not active and cannot be edited.');
-    }
-  };
+  // const handleEditCourse = (courseId) => {
+  //   if (localStorage.getItem("adminToken") ) {
+  //     // Admin can edit the course regardless of the active status
+  //     // or if the course is active, allow the user to edit it
+  //     // navigate(`/course-details/${courseId}`);
+  //     window.location.href= `/course-details/${courseId}`;
+  //     console.log(`Edit course with ID: ${courseId}`);
+  //   } else {
+  //     console.log(`Course with ID: ${courseId} is not active and cannot be edited.`);
+  //     // Optionally show an alert or message to the user
+  //     toast.error('This course is not active and cannot be edited.');
+  //   }
+  // };
   
 
   return (
@@ -121,13 +122,15 @@ const CourseTable = () => {
                   <td>{course.time_spent_on_course}</td>
                   {localStorage.getItem('adminToken')?" " :<td>{course.is_active==1?"Active":"InActive"}</td>}
                   <td>
-                    <button
+                   <Link to={`/course-details/${course.id}`}>
+                   <button
                       className="btn btn-primary action-btn"
-                      onClick={() => handleEditCourse(course.id,course.is_active)}
+                      // onClick={() => handleEditCourse(course.id,course.is_active)}
                     >
                       <FeatherIcon icon="edit" className="me-2" />
                       Edit
                     </button>
+                   </Link>
                     {localStorage.getItem("adminToken")?"":
                       (<button
                       className="btn btn-secondary danger-btn"
