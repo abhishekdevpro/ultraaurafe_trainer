@@ -92,7 +92,19 @@ export default function InstructorSidebar() {
                 <Link to="/add-course" className="add-course btn-primary">
                   Add New Course
                 </Link>
+                {/* <Link to="/add-course" className="add-course btn-primary">
+                  watch Tutorial
+                </Link> */}
+                 <a
+      href="https://drive.google.com/file/d/19d3qnUE-9brnl7iX-dgQ9V9sxjZL_CO6/view?usp=drive_link"
+      target="_blank"
+      rel="noopener noreferrer"
+    className="add-course btn-primary"
+    >
+      Watch a 5 minutes video
+    </a>
               </div>
+              
             </div>
           </div>
         </div>
