@@ -1,21 +1,20 @@
-
 import React, { useEffect, useState } from "react";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import OwlCarousel from "react-owl-carousel";
-import FeatherIcon from "feather-icons-react";
+// import FeatherIcon from "feather-icons-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 // import logo5 from "../../../assets/logo5.png";
 import logo5 from "../../../assets/Ultra_Aura.png";
-
+import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const [passwordType, setPasswordType] = useState("password");
-  const [passwordInput, setPasswordInput] = useState("");
+  // const [passwordType, setPasswordType] = useState("password");
+  // const [passwordInput, setPasswordInput] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   useEffect(() => {
@@ -32,17 +31,17 @@ const Login = () => {
       window.location.reload();
     }
   }, []);
-  const handlePasswordChange = (evt) => {
-    setPasswordInput(evt.target.value);
-  };
+  // const handlePasswordChange = (evt) => {
+  //   setPasswordInput(evt.target.value);
+  // };
 
   const handleEmailChange = (evt) => {
     setEmail(evt.target.value);
   };
 
-  const togglePassword = () => {
-    setPasswordType(passwordType === "password" ? "text" : "password");
-  };
+  // const togglePassword = () => {
+  //   setPasswordType(passwordType === "password" ? "text" : "password");
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,14 +51,14 @@ const Login = () => {
     try {
       const response = await axios.post(apiUrl, {
         email: email,
-        password: passwordInput,
+        // password: passwordInput,
       });
 
       if (response.data) {
         const tokenKey = "trainerToken";
         localStorage.setItem(tokenKey, response.data.data.token);
 
-        toast.success('Login successful!', {
+        toast.success("Login successful!", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -74,7 +73,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login failed", error);
-      toast.error('Login failed. Please check your credentials.', {
+      toast.error("Login failed. Please check your credentials.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -128,28 +127,46 @@ const Login = () => {
       }
     }
   `;
+  const handleGoogleSignin = async () => {
+    const url = "https://api.novajobs.us/api/trainers/auth/google";
 
+    try {
+      const response = await axios.get(
+        url,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Google sign-in token: ", response.data.data);
+        window.open(response.data.data);
+      } else {
+        toast.error("Google sign-in failed.");
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error(`${err.response?.data?.message || "Google sign-in failed"}`);
+    }
+  };
   return (
     <>
       <div className="main-wrapper log-wrap">
         <div className="row">
           <div className="col-md-6 login-bg">
-            <OwlCarousel 
+            <OwlCarousel
               {...settings}
-              className="owl-carousel login-slide owl-theme">
+              className="owl-carousel login-slide owl-theme"
+            >
               <div className="welcome-login">
                 <div className="login-banner">
-                  <img
-                    src={logo5}
-                    className="img-fluid"
-                    alt="Logo"
-                  />
+                  <img src={logo5} className="img-fluid" alt="Logo" />
                 </div>
                 <div className="mentor-course text-center">
-                  <h2>
-                    Welcome to 
-                    UltraAura Trainers.
-                  </h2>
+                  <h2>Welcome to UltraAura Trainers.</h2>
                 </div>
               </div>
             </OwlCarousel>
@@ -160,13 +177,44 @@ const Login = () => {
                 <div className="w-100">
                   <div className="img-logo">
                     <div className="back-home">
-                      <Link to="https://trainers.ultraaura.education/">Back to Home</Link>
+                      <Link to="https://trainers.ultraaura.education/">
+                        Back to Home
+                      </Link>
                     </div>
                   </div>
-                  <h1>Sign into Your Account</h1>
+                  {/* <h1>Sign into Your Account</h1> */}
+                  <h1 className="bold">Ready to take the next step?</h1>
+                  <h5>Create an account or sign in.</h5>
                   <form onSubmit={handleSubmit}>
+                    <div className="d-grid mb-4">
+                      <button
+                        onClick={handleGoogleSignin}
+                        type="button"
+                        className="w-full flex items-center justify-center bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md mt-4 shadow-sm hover:bg-gray-100 focus:outline-none"
+                      >
+                        <FcGoogle
+                          className="h-6 w-6 mr-2"
+                          style={{ fontSize: "30px" }}
+                        />
+                        Continue with Google
+                      </button>
+                    </div>
+                    <div
+                      className="gap-2"
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <hr style={{ flex: 1, border: "1px solid black" }} />
+                      or
+                      <hr style={{ flex: 1, border: "1px solid black" }} />
+                    </div>
                     <div className="input-block">
-                      <label className="form-control-label">Email</label>
+                      <label className="form-control-label">
+                        Email address
+                      </label>
                       <input
                         type="email"
                         className="form-control"
@@ -176,7 +224,7 @@ const Login = () => {
                         required
                       />
                     </div>
-                    <div className="input-block">
+                    {/* <div className="input-block">
                       <label className="form-control-label">Password</label>
                       <div className="pass-group">
                         <input
@@ -187,8 +235,15 @@ const Login = () => {
                           placeholder="Password"
                           required
                         />
-                        <span className="toggle-password feather-eye" onClick={togglePassword}>
-                          {passwordType === "password" ? <FeatherIcon icon="eye" /> : <FeatherIcon icon="eye-off" />}
+                        <span
+                          className="toggle-password feather-eye"
+                          onClick={togglePassword}
+                        >
+                          {passwordType === "password" ? (
+                            <FeatherIcon icon="eye" />
+                          ) : (
+                            <FeatherIcon icon="eye-off" />
+                          )}
                         </span>
                       </div>
                     </div>
@@ -204,6 +259,24 @@ const Login = () => {
                         Remember me
                         <input type="checkbox" name="remember" />
                         <span className="checkmark" />
+                      </label>
+                    </div> */}
+                    <div className="form-check remember-me">
+                      <label className="form-check-label mb-0">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          name="remember"
+                        />
+                        By creating an account or signing in, you understand and
+                        agree to UltraAura&nbsp;
+                        <Link to="/term-condition">Terms.</Link> You also
+                        consent to our&nbsp;
+                        <Link to="/privacy-policy">Cookie</Link> and&nbsp;
+                        <Link to="/privacy-policy">Privacy</Link> policies. You
+                        will receive marketing messages from Indeed and may opt
+                        out at any time by following the unsubscribe link in our
+                        messages, or as detailed in our terms.
                       </label>
                     </div>
                     <div className="d-grid">
@@ -222,13 +295,13 @@ const Login = () => {
                             {" Loading..."}
                           </>
                         ) : (
-                          "Sign in as Trainer"
+                          "Continue"
                         )}
                       </button>
                     </div>
                     <SignUpText>
-                      Do not have an account?{" "}
-                      <Link to="/register">Create one</Link>
+                      {/* Do not have an account?{" "}
+                      <Link to="/register">Create one</Link> */}
                     </SignUpText>
                   </form>
                 </div>
