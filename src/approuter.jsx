@@ -171,6 +171,7 @@ import EditCouponForm from "./components/Admin/EditCoupon.jsx";
 import PaymentFailedPage from "./components/pages/error/Paymentfailed.jsx";
 import ScheduleLiveClass from "./components/instructor/LiveClasses/ScheduleLiveClass.jsx";
 import JoinLiveClass from "./components/instructor/LiveClasses/ForStudent/JoinLiveClasses.jsx";
+import Gauth from "./components/pages/login/G-auth.jsx";
 const Approuter = () => {
   const trainerToken = localStorage.getItem("trainerToken")
   return (
@@ -251,6 +252,7 @@ const Approuter = () => {
         <Route path="/partners" element={<PartnersPage/>} />
         <Route path="/skilltests" element={<SkillAssessmentsPage/>} />
         <Route path="/setting-edit-profile" element={<StudentEditProfile />} />
+        <Route path="/gauth" element={<Gauth />} />
 
         <Route path="/view-invoice" element={<ViewInvoice />} />
 
