@@ -384,7 +384,7 @@ const Login = () => {
   const handleGoogleSignin = async () => {
     try {
       const response = await axios.get(
-        "https://api.novajobs.us/api/students/auth/google"
+        "https://api.novajobs.us/api/trainers/auth/google"
       );
 
       if (response.data?.data) {
