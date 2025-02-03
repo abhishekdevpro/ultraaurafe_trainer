@@ -4,6 +4,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import ZoomMeetingModal from "./ZoomMeetingModal";
+// import { Copy } from "lucide-react";
 
 const TrainerLiveClassTable = () => {
   const [classes, setClasses] = useState([]);
@@ -19,10 +20,10 @@ const TrainerLiveClassTable = () => {
   const [isCoursesLoaded, setIsCoursesLoaded] = useState(false);
   const [editingClassId, setEditingClassId] = useState(null);
   const [activeMeetingUrl, setActiveMeetingUrl] = useState("");
-  const [passcode,setPasscode] = useState("")
+  const [passcode, setPasscode] = useState("");
 
   const trainerToken = localStorage.getItem("trainerToken");
- console.log(isCoursesLoaded);
+  console.log(isCoursesLoaded);
   useEffect(() => {
     fetchClasses();
   }, [trainerToken]);
@@ -158,7 +159,7 @@ const TrainerLiveClassTable = () => {
 
   const handleJoin = (liveClass) => {
     console.log(liveClass, "lc");
-  
+
     // Parse meeting information
     const meetingInfoString = liveClass.meeting_info;
     let meetingInfo;
@@ -169,37 +170,56 @@ const TrainerLiveClassTable = () => {
       alert("Invalid meeting info format. Please try again.");
       return;
     }
-  
+
     const meetingId = liveClass.meeting_id;
     const passcode = meetingInfo.password || "";
-    console.log(passcode,"mai hu ");
-    console.log(meetingInfo.pwd,"mai hu pwd ");
-  
+    console.log(passcode, "mai hu ");
+    console.log(meetingInfo.pwd, "mai hu pwd ");
+
     if (!meetingId) {
       toast.error("Meeting ID is missing. Please check the meeting details.");
       return;
     }
-  
+
     if (!passcode) {
-      console.log(passcode,"mai hu passcode");
-        toast.error("Invalid user or missing password for the meeting. Please check the credentials.");
+      console.log(passcode, "mai hu passcode");
+      toast.error(
+        "Invalid user or missing password for the meeting. Please check the credentials."
+      );
       return;
     }
 
-    setPasscode(passcode)
-  
+    setPasscode(passcode);
+
     // Construct the Zoom meeting URL
     const zoomUrl = `https://zoom.us/wc/${meetingId}/join?pwd=${passcode}`;
-    console.log(zoomUrl,"mai hu zoom");
-    setActiveMeetingUrl(zoomUrl);
-    setShowMeetingModal(true);
-  
+    console.log(zoomUrl, "mai hu zoom");
+    // setActiveMeetingUrl(zoomUrl);
+    // setShowMeetingModal(true);
+    window.open(zoomUrl, "_blank");
   };
 
   const handleMeetingClose = () => {
     setShowMeetingModal(false);
     setActiveMeetingUrl("");
   };
+
+  // const handleCopyPasscode = (passcode) => {
+  //   if (!passcode) {
+  //     toast.error("No passcode available to copy.");
+  //     return;
+  //   }
+
+  //   navigator.clipboard
+  //     .writeText(passcode)
+  //     .then(() => {
+  //       toast.success("Passcode copied to clipboard!");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Failed to copy passcode", error);
+  //       toast.error("Failed to copy passcode. Please try again.");
+  //     });
+  // };
 
   return (
     <div className="container mt-5">
@@ -228,15 +248,25 @@ const TrainerLiveClassTable = () => {
                         <th>Title</th>
                         <th>Start Time</th>
                         <th>Duration</th>
-                        <th>Actions</th>
+                        {/* <th>Passcode</th> */}
+                        <th className="text-center">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {classes.map((liveClass) => (
                         <tr key={liveClass.id}>
                           <td>{liveClass.title}</td>
-                          <td>{new Date(liveClass.start_time).toLocaleString()}</td>
+                          <td>
+                            {new Date(liveClass.start_time).toLocaleString()}
+                          </td>
                           <td>{liveClass.duration} minutes</td>
+                          {/* <td className="text-center">
+                            <Copy
+                              size={20}
+                              className="cursor-pointer hover:text-blue-500"
+                              onClick={() => handleCopyPasscode(passcode)}
+                            />
+                          </td> */}
                           <td>
                             <div className="btn-group" role="group">
                               <button
@@ -274,12 +304,14 @@ const TrainerLiveClassTable = () => {
         showMeetingModal={showMeetingModal}
         handleMeetingClose={handleMeetingClose}
         activeMeetingUrl={activeMeetingUrl}
-        passcode = {passcode}
+        passcode={passcode}
       />
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{editingClassId ? "Edit" : "Create"} Live Class</Modal.Title>
+          <Modal.Title>
+            {editingClassId ? "Edit" : "Create"} Live Class
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
