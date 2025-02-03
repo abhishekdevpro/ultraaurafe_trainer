@@ -172,6 +172,7 @@ import PaymentFailedPage from "./components/pages/error/Paymentfailed.jsx";
 import ScheduleLiveClass from "./components/instructor/LiveClasses/ScheduleLiveClass.jsx";
 import JoinLiveClass from "./components/instructor/LiveClasses/ForStudent/JoinLiveClasses.jsx";
 import Gauth from "./components/pages/login/G-auth.jsx";
+import LoginCode from "./components/pages/login/LoginCode.jsx";
 const Approuter = () => {
   const trainerToken = localStorage.getItem("trainerToken")
   return (
@@ -227,6 +228,7 @@ const Approuter = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/verify-otp" element={<LoginCode />} />
         <Route path="/students/new-password/:token" element={<NewPassword />} />
         <Route path="/trainers/new-password/:token" element={<NewPassword2 />} />
         <Route path="/vendors/new-password/:token" element={<NewPasswordVendor />} />
