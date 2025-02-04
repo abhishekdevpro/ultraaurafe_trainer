@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 const Gauth = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -25,14 +25,19 @@ const Gauth = () => {
             `https://api.novajobs.us/api/trainers/auth/callback?code=${code}`
           );
           const token = response.data.data.token;
+          if (response.code === 200) {
+            // Save the token in localStorage
+            localStorage.setItem("trainerToken", token);
+            console.log(response);
+            // navigate('/dashboard')
 
-          // Save the token in localStorage
-          localStorage.setItem("trainerToken", token);
-          console.log(response);
-          // navigate('/dashboard')
-
-          // Redirect to the success URL with the token
-          navigate("/instructor/instructor-dashboard");
+            // Redirect to the success URL with the token
+            navigate("/instructor/instructor-dashboard");
+          } else {
+            console.log(response.data.message, ">>>>error message");
+            // console.error(error, ">>>>error");
+            toast.error(response.data.message);
+          }
         } catch (error) {
           console.error("Error while sending auth code:", error);
 
