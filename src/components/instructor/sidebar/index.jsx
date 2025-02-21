@@ -88,7 +88,7 @@ export default function InstructorSidebar() {
                 <h4>
                   <Link to="/instructor/instructor-profile">{profile.first_name}{" "}{profile.last_name}</Link>
                 </h4>
-                <p>Instructor</p>
+                <p>{profile.jobtitle || "Instructor"}</p>
                 <Link to="/add-course" className="add-course btn-primary">
                   Add New Course
                 </Link>

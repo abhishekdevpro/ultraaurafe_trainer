@@ -312,7 +312,7 @@
 //       {/* /Page Content */}
 //       <Footer />
 //       {/* Add ToastContainer for toast notifications */}
-//       <ToastContainer />
+//        
 //     </div>
 //   );
 // };
@@ -327,7 +327,7 @@ import { Icon1, Icon2 } from '../../imagepath';
 import StudentHeader from "../header";
 import StudentSidebar from "../sidebar";
 import Footer from "../../footer";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from 'styled-components';
 
@@ -672,7 +672,7 @@ const DynamicCourseList = () => {
         </div>
       </div>
       <Footer />
-      <ToastContainer />
+       
     </div>
   );
 };

@@ -3,7 +3,7 @@
 import Footer from "../../footer";
 import { InstructorHeader } from "../../instructor/header";
 import InstructorSidebar from "../sidebar";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CourseTable from "./CourseList";
 // import axios from 'axios';
 
@@ -50,16 +50,16 @@ export const Dashboard = () => {
             <div className="col-md-12 col-12 pt-4">
               <div className="breadcrumb-list">
                 <h2 className="breadcrumb-title">Dashboard</h2>
-                <nav aria-label="breadcrumb" className="page-breadcrumb">
+                {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <Link to="/">Home</Link>
+                      <Link to="">Home</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Dashboard
                     </li>
                   </ol>
-                </nav>
+                </nav> */}
               </div>
             </div>
           </div>

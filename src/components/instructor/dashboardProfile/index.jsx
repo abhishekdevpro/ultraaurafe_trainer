@@ -4,7 +4,7 @@ import axios from "axios";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
 import InstructorSidebar from "../sidebar";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const DashboardProfile = () => {
   const [profile, setProfile] = useState(null);
@@ -45,7 +45,7 @@ const DashboardProfile = () => {
                         <div className="col-md-12 col-12">
                             <div className="breadcrumb-list">
                                 <h2 className="breadcrumb-title">My Profile</h2>
-                                <nav aria-label="breadcrumb" className="page-breadcrumb">
+                                {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
                                     <ol className="breadcrumb">
                                         <li className="breadcrumb-item">
                                             <Link to="/home">Home</Link>
@@ -54,7 +54,7 @@ const DashboardProfile = () => {
                                             Profile
                                         </li>
                                     </ol>
-                                </nav>
+                                </nav> */}
                             </div>
                         </div>
                     </div>

@@ -504,9 +504,9 @@
 import React, { useState, useEffect } from "react";
 import InstructorSidebar from "../sidebar";
 import Footer from "../../footer";
-import SettingsPageHeader from "./settingsPageHeader";
+// import SettingsPageHeader from "./settingsPageHeader";
 import axios from "axios";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { InstructorHeader } from "../header";
 
@@ -687,21 +687,28 @@ const InstructorSettings = () => {
 
   return (
     <>
-    <ToastContainer />
+     
     
     <div className="main-wrapper">
       <InstructorHeader activeMenu={"Settings"} />
-      <div className="breadcrumb-bar breadcrumb-bar-info">
-        <div className="container">
-          <div className="row align-items-center">
+      
+      <div className="breadcrumb-bar breadcrumb-bar-info ">
+        <div className="container ">
+          <div className="row">
             <div className="col-md-12 col-12">
-              <h2 className="breadcrumb-title">Settings</h2>
-              <nav aria-label="breadcrumb" className="page-breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                  <li className="breadcrumb-item active" aria-current="page">Settings</li>
-                </ol>
-              </nav>
+              <div className="breadcrumb-list">
+                <h2 className="breadcrumb-title">Settings</h2>
+                {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
+                  <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                      <Link to="/home">Home</Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                      Schedule Class
+                    </li>
+                  </ol>
+                </nav> */}
+              </div>
             </div>
           </div>
         </div>
@@ -717,7 +724,7 @@ const InstructorSettings = () => {
                     <h3>Settings</h3>
                     <p>You have full control to manage your own account settings</p>
                   </div>
-                  <SettingsPageHeader />
+                  {/* <SettingsPageHeader /> */}
                   {loading && <p>Loading...</p>}
                   {error && <p className="text-danger">{error}</p>}
                   {success && <p className="text-success">{success}</p>}
@@ -785,7 +792,7 @@ const InstructorSettings = () => {
                               className="form-control"
                               name="phone"
                               value={formData.phone}
-                              readOnly
+                              onChange={handleInputChange}
                             />
                           </div>
                         </div>
@@ -825,7 +832,7 @@ const InstructorSettings = () => {
                             />
                           </div>
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <div className="input-block">
                             <label className="form-label">Twitter</label>
                             <input
@@ -836,8 +843,8 @@ const InstructorSettings = () => {
                               onChange={handleInputChange}
                             />
                           </div>
-                        </div>
-                        <div className="col-md-6">
+                        </div> */}
+                        {/* <div className="col-md-6">
                           <div className="input-block">
                             <label className="form-label">Facebook</label>
                             <input
@@ -848,7 +855,7 @@ const InstructorSettings = () => {
                               onChange={handleInputChange}
                             />
                           </div>
-                        </div>
+                        </div> */}
                         <div className="col-md-6">
                           <div className="input-block">
                             <label className="form-label">LinkedIn</label>
