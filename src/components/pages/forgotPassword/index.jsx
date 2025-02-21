@@ -7,7 +7,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import OwlCarousel from "react-owl-carousel";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify"; 
+import { toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <> <ToastContainer />
+    <>  
       <div className="main-wrapper">
         <div className="row">
           {/* Login Banner */}

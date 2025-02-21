@@ -4,7 +4,7 @@ import Select from "react-select";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
 import InstructorSidebar from "../sidebar";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import LiveClassTable from "./LiveClassTable";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -119,7 +119,7 @@ const ScheduleLiveClass = () => {
             <div className="col-md-12 col-12">
               <div className="breadcrumb-list">
                 <h2 className="breadcrumb-title">Schedule Live Class</h2>
-                <nav aria-label="breadcrumb" className="page-breadcrumb">
+                {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
                       <Link to="/home">Home</Link>
@@ -128,7 +128,7 @@ const ScheduleLiveClass = () => {
                       Schedule Class
                     </li>
                   </ol>
-                </nav>
+                </nav> */}
               </div>
             </div>
           </div>

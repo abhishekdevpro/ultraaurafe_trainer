@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { InstructorHeader } from "./header";
 import InstructorSidebar from "./sidebar";
 import Footer from "../footer";
@@ -17,7 +17,7 @@ export const Coming = () => {
             <div className="col-md-12 col-12">
               <div className="breadcrumb-list">
                 <h2 className="breadcrumb-title">Dashboard</h2>
-                <nav aria-label="breadcrumb" className="page-breadcrumb">
+                {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
                       <Link to="/home">Home</Link>
@@ -26,7 +26,7 @@ export const Coming = () => {
                       Dashboard
                     </li>
                   </ol>
-                </nav>
+                </nav> */}
               </div>
             </div>
           </div>

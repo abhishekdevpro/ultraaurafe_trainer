@@ -16,7 +16,7 @@ const InstructorReviews = () => {
             <div className="col-md-12 col-12">
               <div className="breadcrumb-list">
                 <h2 className="breadcrumb-title">Reviews</h2>
-                <nav aria-label="breadcrumb" className="page-breadcrumb">
+                {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
                       <Link to="/home">Home</Link>
@@ -25,7 +25,7 @@ const InstructorReviews = () => {
                       Reviews
                     </li>
                   </ol>
-                </nav>
+                </nav> */}
               </div>
             </div>
           </div>
