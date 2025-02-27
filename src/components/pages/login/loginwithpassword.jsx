@@ -53,7 +53,7 @@ const LoginWithPassword = () => {
     try {
       const response = await axios.post(apiUrl, {
         email: email,
-        // password: passwordInput,
+        password: passwordInput,
       });
 
       if (response.data) {
