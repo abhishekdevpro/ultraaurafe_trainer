@@ -5,16 +5,18 @@
 // // import FeatherIcon from "feather-icons-react";
 // import { Link, useNavigate } from "react-router-dom";
 // import axios from "axios";
-// import { ToastContainer, toast } from "react-toastify";
+// import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 // import styled from "styled-components";
 // // import logo5 from "../../../assets/logo5.png";
 // import logo5 from "../../../assets/Ultra_Aura.png";
 // import { FcGoogle } from "react-icons/fc";
+// import { FeatherIcon } from "lucide-react";
+
 // const Login = () => {
 //   const [loading, setLoading] = useState(false);
-//   // const [passwordType, setPasswordType] = useState("password");
-//   // const [passwordInput, setPasswordInput] = useState("");
+//   const [passwordType, setPasswordType] = useState("password");
+//   const [passwordInput, setPasswordInput] = useState("");
 //   const [email, setEmail] = useState("");
 //   const navigate = useNavigate();
 //   useEffect(() => {
@@ -31,17 +33,17 @@
 //       window.location.reload();
 //     }
 //   }, []);
-//   // const handlePasswordChange = (evt) => {
-//   //   setPasswordInput(evt.target.value);
-//   // };
+//   const handlePasswordChange = (evt) => {
+//     setPasswordInput(evt.target.value);
+//   };
 
 //   const handleEmailChange = (evt) => {
 //     setEmail(evt.target.value);
 //   };
 
-//   // const togglePassword = () => {
-//   //   setPasswordType(passwordType === "password" ? "text" : "password");
-//   // };
+//   const togglePassword = () => {
+//     setPasswordType(passwordType === "password" ? "text" : "password");
+//   };
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
@@ -196,7 +198,7 @@
 //                           className="h-6 w-6 mr-2"
 //                           style={{ fontSize: "30px" }}
 //                         />
-//                           {"   "}Continue with Google
+//                         {"   "}Continue with Google
 //                       </button>
 //                     </div>
 //                     <div
@@ -224,7 +226,7 @@
 //                         required
 //                       />
 //                     </div>
-//                     {/* <div className="input-block">
+//                     <div className="input-block">
 //                       <label className="form-control-label">Password</label>
 //                       <div className="pass-group">
 //                         <input
@@ -255,12 +257,12 @@
 //                       </span>
 //                     </div>
 //                     <div className="remember-me">
-//                       <label className="custom_check mr-2 mb-0 d-inline-flex remember-me">
+//                       {/* <label className="custom_check mr-2 mb-0 d-inline-flex remember-me">
 //                         Remember me
 //                         <input type="checkbox" name="remember" />
 //                         <span className="checkmark" />
-//                       </label>
-//                     </div> */}
+//                       </label> */}
+//                     </div>
 //                     <div className="form-check remember-me">
 //                       <label className="form-check-label mb-0">
 //                         <input
@@ -313,7 +315,6 @@
 //           </div>
 //         </div>
 //       </div>
-//        
 //     </>
 //   );
 // };
@@ -350,7 +351,7 @@ const SignUpText = styled.div`
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleEmailChange = (evt) => {
     setEmail(evt.target.value);
@@ -359,13 +360,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const response = await axios.post(
         "https://api.novajobs.us/api/trainers/auth/login-otp",
         { email }
       );
-  
+
       if (response.data) {
         toast.success("OTP sent successfully!");
         // Properly format the query parameter
@@ -482,13 +483,15 @@ const Login = () => {
                         required
                       />
                       By creating an account or signing in, you understand and
-                      agree to UltraAura{" "}
-                      <Link to="/term-condition">Terms</Link>. You also consent to
-                      our <Link to="/privacy-policy">Cookie</Link> and{" "}
+                      agree to UltraAura <Link to="/term-condition">Terms</Link>
+                      . You also consent to our{" "}
+                      <Link to="/privacy-policy">Cookie</Link> and{" "}
                       <Link to="/privacy-policy">Privacy</Link> policies.
                     </label>
                   </div>
-
+                  <div className="mb-4 text-[#f66962] text-center d-flex justify-content-center">
+                    <Link to="/loginwithpassword">- Login with password -</Link>
+                  </div>
                   {/* Submit Button */}
                   <div className="d-grid">
                     <button
@@ -518,7 +521,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-       
     </div>
   );
 };
