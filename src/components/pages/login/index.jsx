@@ -6,8 +6,7 @@
 // import { Link, useNavigate } from "react-router-dom";
 // import axios from "axios";
 // import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import styled from "styled-components";
+// // import styled from "styled-components";
 // // import logo5 from "../../../assets/logo5.png";
 // import logo5 from "../../../assets/Ultra_Aura.png";
 // import { FcGoogle } from "react-icons/fc";
@@ -325,7 +324,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import logo5 from "../../../assets/Ultra_Aura.png";
@@ -423,7 +421,7 @@ const Login = () => {
               <div className="w-100">
                 <div className="img-logo">
                   <div className="back-home">
-                    <Link to="/home">Back to Home</Link>
+                    <Link to="https://ultraaura.education/home">Back to Home</Link>
                   </div>
                 </div>
 

@@ -64,7 +64,7 @@ root.render(
   <>
     <Provider store={store}>
       <Approuter />
-      <ToastContainer // Add the ToastContainer component
+      <ToastContainer 
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}

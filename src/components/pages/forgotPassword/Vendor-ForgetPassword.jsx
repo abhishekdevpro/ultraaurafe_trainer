@@ -6,7 +6,6 @@ import OwlCarousel from "react-owl-carousel";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPasswordVendor = () => {
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");

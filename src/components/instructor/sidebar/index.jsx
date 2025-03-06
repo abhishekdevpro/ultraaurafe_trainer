@@ -74,7 +74,7 @@ export default function InstructorSidebar() {
             <div className="profile-bg">
               <div className="profile-img">
               {/* /instructor/instructor-profile */}
-                <Link to="#">
+                <Link to="/instructor/instructor-profiles">
                   {profile && profile.photo ? (
                     <img src={`https://api.novajobs.us${profile.photo}`} alt="Profile" />
                   ) : (

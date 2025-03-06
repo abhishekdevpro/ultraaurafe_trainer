@@ -3,7 +3,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { toast} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import InstructorCard from "./InstructorCard";
 import CourseContent from "./CourseContent";
