@@ -11,7 +11,6 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 import StudentSettingPageHeader from "./settingPageHeader";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 const StudentSetting = () => {
   const token = localStorage.getItem("token");
 

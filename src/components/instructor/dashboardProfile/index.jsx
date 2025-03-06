@@ -4,6 +4,7 @@ import axios from "axios";
 import { InstructorHeader } from "../../instructor/header";
 import Footer from "../../footer";
 import InstructorSidebar from "../sidebar";
+import FullPageLoader from "../../home/FullPageLoader";
 // import { Link } from "react-router-dom";
 
 const DashboardProfile = () => {
@@ -20,7 +21,7 @@ const DashboardProfile = () => {
             Authorization: `${token}`
           }
         });
-        console.log(response)
+        // console.log(response)
         setProfile(response.data.data);
       } catch (error) {
         setError(error.message);
@@ -32,12 +33,12 @@ const DashboardProfile = () => {
     fetchProfileData();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="main-wrapper">
-      <InstructorHeader activeMenu={"My Profile"} />
+      <InstructorHeader activeMenu={"/instructor/instructor-profiles"} />
       {/* Breadcrumb */}
       <div className="breadcrumb-bar breadcrumb-bar-info">
                 <div className="container">
@@ -75,7 +76,7 @@ const DashboardProfile = () => {
                   <div className="profile-heading">
                     <h3>My Profile</h3>
                   </div>
-                  <div className="checkout-form personal-address">
+                {loading? <FullPageLoader /> :  <div className="checkout-form personal-address">
                     <div className="row">
                       <div className="col-sm-6">
                         <div className="contact-info">
@@ -120,7 +121,7 @@ const DashboardProfile = () => {
                         </div>
                       </div> */}
                     </div>
-                  </div>
+                  </div>}
                 </div>
               </div>
             </div>

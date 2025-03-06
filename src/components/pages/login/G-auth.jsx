@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import FullPageLoader from "../../home/FullPageLoader";
 const Gauth = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -25,13 +26,8 @@ const Gauth = () => {
             `https://api.novajobs.us/api/trainers/auth/callback?code=${code}`
           );
           const token = response.data.data.token;
-          if (response.code === 200) {
-            // Save the token in localStorage
+          if (response.data.code === 200) {
             localStorage.setItem("trainerToken", token);
-            console.log(response);
-            // navigate('/dashboard')
-
-            // Redirect to the success URL with the token
             navigate("/instructor/instructor-dashboard");
           } else {
             console.log(response.data.message, ">>>>error message");
@@ -40,11 +36,9 @@ const Gauth = () => {
           }
         } catch (error) {
           console.error("Error while sending auth code:", error);
-
-          // Redirect to the login page on error
           navigate("/login");
         } finally {
-          setLoading(false); // Stop the loader
+          setLoading(false);
         }
       };
 
@@ -52,7 +46,7 @@ const Gauth = () => {
     } else {
       console.error("Code parameter is missing in the URL");
       setLoading(false);
-      navigate(""); // Redirect to the login page if code is missing
+      navigate(""); 
     }
   }, [navigate]);
 
@@ -64,7 +58,9 @@ const Gauth = () => {
           <p className="mt-4 text-gray-600">Loading, please wait...</p>
         </div>
       ) : (
-        <div className="text-gray-600">Redirecting...</div>
+        <div className="text-gray-600">
+          <FullPageLoader />
+        </div>
       )}
     </div>
   );

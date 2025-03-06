@@ -6,7 +6,6 @@ import OwlCarousel from "react-owl-carousel";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 // import logo5 from "../../../assets/logo5.png";
 import logo5 from "../../../assets/Ultra_Aura.png";

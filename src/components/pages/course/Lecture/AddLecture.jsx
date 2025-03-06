@@ -3,7 +3,6 @@ import React, { useCallback, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Footer from "../../../footer";
 import CourseHeader from "../header";
 import ReactQuill from "react-quill"; // Import ReactQuill

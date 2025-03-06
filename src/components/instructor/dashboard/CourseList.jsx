@@ -4,83 +4,60 @@ import axios from 'axios';
 import FeatherIcon from 'feather-icons-react';
 // import { toast } from 'react-toastify';
 import dummy from '../../../assets/Online Course.png'
+import FullPageLoader from '../../home/FullPageLoader';
 
 const CourseTable = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
-  // const navigate = useNavigate();
+ const [loading,setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   // Retrieve the vendor token or trainer token from local storage
-  //   const token =  localStorage.getItem('trainerToken');
-  //   axios
-  //     .get('https://api.novajobs.us/api/trainers/courses', {
-  //       headers: {
-  //         Authorization: `${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data.data);
-  //       setCourses(response.data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('There was an error fetching the courses!', error);
-  //       setError('Failed to fetch courses. Please try again.');
-  //     });
-  // }, []);
-  useEffect(() => {
-    const token = localStorage.getItem('trainerToken');
-    
-    axios
-      .get('https://api.novajobs.us/api/trainers/courses', {
+ useEffect(() => {
+  const fetchCourses = async () => {
+    setLoading(true);
+    const token = localStorage.getItem("trainerToken");
+
+    try {
+      const response = await axios.get("https://api.novajobs.us/api/trainers/courses", {
         headers: {
           Authorization: `${token}`,
         },
-      })
-      .then((response) => {
-        if(response.status===401){
-          localStorage.removeItem('trainerToken');
-          window.location.href = '/'
-        }
-        console.log(response.data.data);
-        setCourses(response.data.data);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          console.error('Unauthorized, token may be expired');
-          localStorage.removeItem('trainerToken');
-          window.location.href = '/'
-        } else {
-          console.error('There was an error fetching the courses!', error);
-          setError('Failed to fetch courses. Please try again.');
-        }
       });
-  }, []);
-  
-  console.log(courses, 'courses hu');
 
-  // Function to handle course edit
-  // const handleEditCourse = (courseId) => {
-  //   if (localStorage.getItem("adminToken") ) {
-  //     // Admin can edit the course regardless of the active status
-  //     // or if the course is active, allow the user to edit it
-  //     // navigate(`/course-details/${courseId}`);
-  //     window.location.href= `/course-details/${courseId}`;
-  //     console.log(`Edit course with ID: ${courseId}`);
-  //   } else {
-  //     console.log(`Course with ID: ${courseId} is not active and cannot be edited.`);
-  //     // Optionally show an alert or message to the user
-  //     toast.error('This course is not active and cannot be edited.');
-  //   }
-  // };
+      if (response.status === 401) {
+        localStorage.removeItem("trainerToken");
+        window.location.href = "/";
+        return;
+      }
+
+      setCourses(response.data.data);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.error("Unauthorized, token may be expired");
+        localStorage.removeItem("trainerToken");
+        window.location.href = "/";
+      } else {
+        console.error("There was an error fetching the courses!", error);
+        setError("Failed to fetch courses. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchCourses();
+}, []);
+
+  
+
   
 
   return (
-    <div className="instructor-course-table">
+    <>
+      <div className="instructor-course-table">
       <div className="dashboard-title">
         <h4>Recently Created Courses</h4>
       </div>
-      <div className="table-responsive custom-table">
+      {loading ? <FullPageLoader /> :<div className="table-responsive custom-table">
         <table className="table table-nowrap mb-0">
           <thead>
             <tr>
@@ -98,11 +75,11 @@ const CourseTable = () => {
                 <td colSpan="5">{error}</td>
               </tr>
             ) : courses.length > 0 ? (
-              courses.map((course) => (
+              courses?.map((course) => (
                 <tr key={course.id}>
                   <td>
                     <div className="table-course-detail">
-                      {console.log(`https://api.novajobs.us${course.course_banner_image}`)}
+                      {/* {console.log(`https://api.novajobs.us${course.course_banner_image}`)} */}
                       <Link to="#" className="course-table-img">
                         <span>
                           <img
@@ -147,8 +124,9 @@ const CourseTable = () => {
             )}
           </tbody>
         </table>
-      </div>
+      </div>}
     </div>
+    </>
   );
 };
 

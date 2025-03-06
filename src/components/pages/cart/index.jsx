@@ -5,7 +5,6 @@ import Footer from "../../footer";
 import { Icon1, Icon2 } from "../../imagepath";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import CourseHeader from "../course/header";
 
 const EmptyCartMessage = styled.div`
@@ -489,17 +488,7 @@ const Cart = () => {
           </ModalOverlay>
         )}
 
-        {/* <ToastContainer 
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        /> */}
+    
       </div>
       <Footer />
     </>
