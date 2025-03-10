@@ -84,7 +84,7 @@
 //     }
 //   };
   
-//   const handleEditorChange = (value) => {
+//   const handleQuillChange = (value) => {
 //     setCourseData({ ...courseData, course_description: value });
 //   };
 
@@ -521,7 +521,7 @@
 //                               <div id="editor">
 //                                 <CKEditor
 //                                   editor={ClassicEditor}
-//                                   onChange={handleEditorChange}
+//                                   onChange={handleQuillChange}
 //                                 />
 //                               </div>
 //                             </div> */}
@@ -534,7 +534,7 @@
 //                               </label>
 //                               <ReactQuill
 //                                 className="rounded-3 mb-4 pb-4 "
-//                                 onChange={handleEditorChange}
+//                                 onChange={handleQuillChange}
 //                                 placeholder="Enter course description..."
 //                                 style={{ height: "100px" }}
 //                               />
@@ -894,154 +894,403 @@
 // };
 
 // export default AddCourse;
+// "use client"
+
+// import { useState } from "react"
+// import { Link } from "react-router-dom"
+// import { useSelector } from "react-redux"
+// import "react-toastify/dist/ReactToastify.css"
+// import "react-quill/dist/quill.snow.css"
+
+// import Footer from "../../../footer"
+// import CourseHeader from "../header"
+// import ProgressBar from "./components/ProgressBar"
+// import BasicInfoForm from "./components/BasicInfoForm"
+// import MediaForm from "./components/MediaForm"
+// import { useCourseForm } from "./hooks/useCourseForm"
+// import SettingsForm from "./components/SettingForm"
+
+// const AddCourse = () => {
+//   const [activeTab, setActiveTab] = useState("basic")
+//   const mobileSidebar = useSelector((state) => state.sidebarSlice.expandMenu)
+
+//   const {
+//     courseData,
+//     errors,
+//     fileErrors,
+//     isLoading,
+//     categoryOptions,
+//     levelOptions,
+//     handleInputChange,
+//     handleSelectChange,
+//     handleQuillChange,
+//     handleFileChange,
+//     handleSave,
+//     validateForm,
+//   } = useCourseForm()
+
+//   const languageOptions = [{ label: "English", value: "English" }]
+
+//   const selectStyle = {
+//     menu: (base) => ({ ...base, marginTop: "0px" }),
+//     menuList: (base) => ({ ...base, padding: "0" }),
+//     option: (provided) => ({
+//       ...provided,
+//       backgroundColor: mobileSidebar === "disabled" ? "#fff" : "#000",
+//       color: mobileSidebar === "disabled" ? "#000" : "#fff",
+//       fontSize: "14px",
+//       "&:hover": {
+//         backgroundColor: mobileSidebar === "disabled" ? "#FFDEDA" : "#2b2838",
+//       },
+//     }),
+//     indicatorSeparator: (base) => ({
+//       ...base,
+//       display: "none",
+//     }),
+//     dropdownIndicator: (base, state) => ({
+//       ...base,
+//       color: "black",
+//       transform: state.selectProps.menuIsOpen ? "rotate(-180deg)" : "rotate(0)",
+//       transition: "250ms",
+//       display: "none",
+//     }),
+//   }
+
+//   const errorStyle = {
+//     color: "#dc3545",
+//     fontSize: "0.875rem",
+//     marginTop: "0.25rem",
+//     fontWeight: "500",
+//     display: "block",
+//     animation: "fadeIn 0.3s",
+//   }
+
+//   const handleContinue = () => {
+//     if (validateForm("basic")) {
+//       setActiveTab("media")
+//     }
+//   }
+
+//   return (
+//     <div className="main-wrapper">
+//       <CourseHeader activeMenu={"AddCourse"} />
+
+//       <section className="">
+//         <div className="container">
+//           <div className="breadcrumb-bar breadcrumb-bar-info">
+//             <div className="container">
+//               <div className="row">
+//                 <div className="col-md-12 col-12">
+//                   <div className="breadcrumb-list">
+//                     <h2 className="breadcrumb-title">Add New Course</h2>
+//                     <nav aria-label="breadcrumb" className="page-breadcrumb">
+//                       <ol className="breadcrumb">
+//                         <li className="breadcrumb-item">
+//                           <Link to="/home">Home</Link>
+//                         </li>
+//                         <li className="breadcrumb-item active" aria-current="page">
+//                           Add New Course
+//                         </li>
+//                       </ol>
+//                     </nav>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="row">
+//             <div className="col-md-12">
+//               <div className="card">
+//                 <div className="widget-set">
+//                   <ProgressBar activeTab={activeTab} />
+
+//                   <div className="widget-content multistep-form">
+//                     {activeTab === "basic" && (
+//                       <BasicInfoForm
+//                         courseData={courseData}
+//                         errors={errors}
+//                         categoryOptions={categoryOptions}
+//                         levelOptions={levelOptions}
+//                         languageOptions={languageOptions}
+//                         handleInputChange={handleInputChange}
+//                         handleSelectChange={handleSelectChange}
+//                         handleQuillChange={handleQuillChange}
+//                         selectStyle={selectStyle}
+//                         errorStyle={errorStyle}
+//                         onContinue={handleContinue}
+//                       />
+//                     )}
+
+//                     {activeTab === "media" && (
+//                       <MediaForm
+//                         courseData={courseData}
+//                         fileErrors={fileErrors}
+//                         handleFileChange={handleFileChange}
+//                         onPrevious={() => setActiveTab("basic")}
+//                         onContinue={() => setActiveTab("settings")}
+//                       />
+//                     )}
+
+//                     {activeTab === "settings" && (
+//                       <SettingsForm
+//                         courseData={courseData}
+//                         handleInputChange={handleInputChange}
+//                         onPrevious={() => setActiveTab("media")}
+//                         onSave={handleSave}
+//                         isLoading={isLoading}
+//                       />
+//                     )}
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       <Footer />
+//     </div>
+//   )
+// }
+
+// export default AddCourse
+
 "use client"
 
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import {  useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
+import axios from "axios"
+import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import "react-quill/dist/quill.snow.css"
+import { debounce } from "lodash"
 
 import Footer from "../../../footer"
 import CourseHeader from "../header"
-import ProgressBar from "./components/ProgressBar"
-import BasicInfoForm from "./components/BasicInfoForm"
-import MediaForm from "./components/MediaForm"
-import { useCourseForm } from "./hooks/useCourseForm"
-import SettingsForm from "./components/SettingForm"
+import CoursePageHeader from "./components/CoursePageHeader"
+import ProgressTabs from "./components/ProgressBar"
+import BasicInfoTab from "./components/BasicInfoForm"
+import MediaTab from "./components/MediaForm"
+import SettingsTab from "./components/SettingForm"
+import { fetchCategoryOptions, fetchLevelOptions } from "./Services/api"
 
 const AddCourse = () => {
-  const [activeTab, setActiveTab] = useState("basic")
+  const navigate = useNavigate()
   const mobileSidebar = useSelector((state) => state.sidebarSlice.expandMenu)
+  const [activeTab, setActiveTab] = useState("basic")
+  const [courseData, setCourseData] = useState({
+    course_title: "",
+    course_category_id: "",
+    course_category_name: "",
+    course_level_id: "",
+    course_level_name: "",
+    course_description: "",
+    course_banner_image: null,
+    course_intro_video: null,
+    requirements: "",
+    course_price: "",
+    after_discount_price: "",
+    coupon_code: "",
+    course_language: "",
+    discount_percent: "",
+    learning_objectives: "",
+    target_audience: "",
+    time_spent_on_course: "",
+  })
+  const [categoryOptions, setCategoryOptions] = useState([])
+  const [levelOptions, setLevelOptions] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  const {
-    courseData,
-    errors,
-    fileErrors,
-    isLoading,
-    categoryOptions,
-    levelOptions,
-    handleInputChange,
-    handleSelectChange,
-    handleEditorChange,
-    handleFileChange,
-    handleSave,
-    validateForm,
-  } = useCourseForm()
-
-  const languageOptions = [{ label: "English", value: "English" }]
-
-  const selectStyle = {
-    menu: (base) => ({ ...base, marginTop: "0px" }),
-    menuList: (base) => ({ ...base, padding: "0" }),
-    option: (provided) => ({
-      ...provided,
-      backgroundColor: mobileSidebar === "disabled" ? "#fff" : "#000",
-      color: mobileSidebar === "disabled" ? "#000" : "#fff",
-      fontSize: "14px",
-      "&:hover": {
-        backgroundColor: mobileSidebar === "disabled" ? "#FFDEDA" : "#2b2838",
-      },
-    }),
-    indicatorSeparator: (base) => ({
-      ...base,
-      display: "none",
-    }),
-    dropdownIndicator: (base, state) => ({
-      ...base,
-      color: "black",
-      transform: state.selectProps.menuIsOpen ? "rotate(-180deg)" : "rotate(0)",
-      transition: "250ms",
-      display: "none",
-    }),
+  // Get token and determine user type
+  const token =
+    localStorage.getItem("trainerToken") || localStorage.getItem("vendorToken") || localStorage.getItem("adminToken")
+  let userType
+  if (localStorage.getItem("trainerToken")) {
+    userType = "instructor"
+  } else if (localStorage.getItem("vendorToken")) {
+    userType = "vendor"
+  } else if (localStorage.getItem("adminToken")) {
+    userType = "admin"
   }
 
-  const errorStyle = {
-    color: "#dc3545",
-    fontSize: "0.875rem",
-    marginTop: "0.25rem",
-    fontWeight: "500",
-    display: "block",
-    animation: "fadeIn 0.3s",
-  }
+  // Load data on component mount
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoading(true)
+      try {
+        const [categoriesResult, levelsResult] = await Promise.all([
+          fetchCategoryOptions(token),
+          fetchLevelOptions(token),
+        ])
 
-  const handleContinue = () => {
-    if (validateForm("basic")) {
-      setActiveTab("media")
+        setCategoryOptions(categoriesResult)
+        setLevelOptions(levelsResult)
+      } catch (error) {
+        console.error("Error loading data:", error)
+        toast.error("Error loading data. Please try again.")
+        navigate(`/${userType}/${userType}-dashboard`)
+      } finally {
+        setIsLoading(false)
+      }
     }
+
+    loadData()
+  }, [token, navigate, userType])
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setCourseData((prevState) => ({ ...prevState, [name]: value }))
+  }
+
+  // Handle select changes
+  const handleSelectChange = (name) => (selectedOption) => {
+    setCourseData((prevState) => ({ ...prevState, [name]: selectedOption.value }))
+  }
+
+  // Handle file changes
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    setCourseData((prevState) => ({ ...prevState, [e.target.name]: file }))
+  }
+
+  // Handle rich text editor changes
+  const handleQuillChange = (name) => (content) => {
+    setCourseData((prevState) => ({ ...prevState, [name]: content }))
+  }
+
+  // Save course data
+  const handleSave = debounce(async () => {
+    try {
+      const formData = new FormData()
+      for (const key in courseData) {
+        if (courseData[key] !== undefined && courseData[key] !== null) {
+          if (key === "course_banner_image" || key === "course_intro_video") {
+            if (courseData[key] instanceof File) {
+              formData.append(key, courseData[key], courseData[key]?.name)
+            }
+          } else {
+            formData.append(key, courseData[key])
+          }
+        }
+      }
+
+      const response = await axios.post("https://api.novajobs.us/api/trainers/create-course", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `${token}`,
+        },
+      })
+      
+      console.log("Course created successfully:", response.data.data)
+      toast.success("Course created successfully!")
+      
+      // Navigate to the dashboard or optionally to add sections
+      const courseId = response.data.data.course_id || response.data.data.id
+      if (courseId) {
+        navigate(`/add-section/${courseId}`)
+      } else {
+        navigate(`/${userType}/${userType}-dashboard`)
+      }
+    } catch (error) {
+      console.error("Error creating course:", error)
+      toast.error("Error creating course. Please try again.")
+    }
+  }, 500)
+
+  // Validate form before proceeding to next step
+  const validateForm = (tab) => {
+    if (tab === "basic") {
+      if (!courseData.course_title || !courseData.course_category_id || !courseData.course_level_id) {
+        toast.error("Please fill all required fields")
+        return false
+      }
+      return true
+    }
+    return true
+  }
+
+  // Render the appropriate tab content
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "basic":
+        return (
+          <BasicInfoTab
+            courseData={courseData}
+            categoryOptions={categoryOptions}
+            levelOptions={levelOptions}
+            mobileSidebar={mobileSidebar}
+            handleInputChange={handleInputChange}
+            handleSelectChange={handleSelectChange}
+            handleQuillChange={handleQuillChange}
+            onContinue={() => {
+              if (validateForm("basic")) {
+                setActiveTab("media")
+              }
+            }}
+          />
+        )
+      case "media":
+        return (
+          <MediaTab
+            courseData={courseData}
+            handleFileChange={handleFileChange}
+            onPrevious={() => setActiveTab("basic")}
+            onContinue={() => setActiveTab("settings")}
+          />
+        )
+      case "settings":
+        return (
+          <SettingsTab
+            courseData={courseData}
+            handleInputChange={handleInputChange}
+            handleQuillChange={handleQuillChange}
+            onPrevious={() => setActiveTab("media")}
+            onSave={handleSave}
+          />
+        )
+      default:
+        return null
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="main-wrapper">
+        <CourseHeader activeMenu={"AddCourse"} />
+        <div className="page-content d-flex justify-content-center align-items-center" style={{ minHeight: "300px" }}>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    )
   }
 
   return (
     <div className="main-wrapper">
       <CourseHeader activeMenu={"AddCourse"} />
 
-      <section className="">
+      <section className="page-content course-sec">
         <div className="container">
-          <div className="breadcrumb-bar breadcrumb-bar-info">
-            <div className="container">
-              <div className="row">
-                <div className="col-md-12 col-12">
-                  <div className="breadcrumb-list">
-                    <h2 className="breadcrumb-title">Add New Course</h2>
-                    <nav aria-label="breadcrumb" className="page-breadcrumb">
-                      <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                          <Link to="/home">Home</Link>
-                        </li>
-                        <li className="breadcrumb-item active" aria-current="page">
-                          Add New Course
-                        </li>
-                      </ol>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+          <div className="row align-items-center">
+            <div className="col-md-12">
+              <CoursePageHeader
+                title="Add New Course"
+                onSave={handleSave}
+                userType={userType}
+              />
             </div>
           </div>
-
           <div className="row">
             <div className="col-md-12">
               <div className="card">
                 <div className="widget-set">
-                  <ProgressBar activeTab={activeTab} />
+                  <ProgressTabs activeTab={activeTab} />
 
-                  <div className="widget-content multistep-form">
-                    {activeTab === "basic" && (
-                      <BasicInfoForm
-                        courseData={courseData}
-                        errors={errors}
-                        categoryOptions={categoryOptions}
-                        levelOptions={levelOptions}
-                        languageOptions={languageOptions}
-                        handleInputChange={handleInputChange}
-                        handleSelectChange={handleSelectChange}
-                        handleEditorChange={handleEditorChange}
-                        selectStyle={selectStyle}
-                        errorStyle={errorStyle}
-                        onContinue={handleContinue}
-                      />
-                    )}
-
-                    {activeTab === "media" && (
-                      <MediaForm
-                        courseData={courseData}
-                        fileErrors={fileErrors}
-                        handleFileChange={handleFileChange}
-                        onPrevious={() => setActiveTab("basic")}
-                        onContinue={() => setActiveTab("settings")}
-                      />
-                    )}
-
-                    {activeTab === "settings" && (
-                      <SettingsForm
-                        courseData={courseData}
-                        handleInputChange={handleInputChange}
-                        onPrevious={() => setActiveTab("media")}
-                        onSave={handleSave}
-                        isLoading={isLoading}
-                      />
-                    )}
-                  </div>
+                  <div className="widget-content multistep-form">{renderTabContent()}</div>
                 </div>
               </div>
             </div>
@@ -1055,4 +1304,3 @@ const AddCourse = () => {
 }
 
 export default AddCourse
-
