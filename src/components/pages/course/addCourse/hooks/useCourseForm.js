@@ -130,7 +130,7 @@ export const useCourseForm = () => {
   }
 
   // Handle editor changes
-  const handleEditorChange = (value) => {
+  const handleQuillChange = (value) => {
     setCourseData((prevData) => ({
       ...prevData,
       course_description: value,
@@ -251,7 +251,7 @@ export const useCourseForm = () => {
     levelOptions,
     handleInputChange,
     handleSelectChange,
-    handleEditorChange,
+    handleQuillChange,
     handleFileChange,
     handleSave,
     validateForm,
