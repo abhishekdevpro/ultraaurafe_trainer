@@ -391,9 +391,9 @@
 //               <label className="add-course-label">Course Intro Video (MP4)</label>
 //               <div className="relative-form">
 //                 <span>
-//                   {selectedVideo instanceof File
-//                     ? selectedVideo.name
-//                     : selectedVideo || "No video selected"}
+                  // {selectedVideo instanceof File
+                  //   ? selectedVideo.name
+                  //   : selectedVideo || "No video selected"}
 //                 </span>
 //                 <label className="relative-file-upload">
 //                   Upload File
@@ -581,9 +581,12 @@ const MediaTab = ({ courseData, handleFileChange, onPrevious, onContinue }) => {
               <label className="add-course-label">Course Intro Video (MP4)</label>
               <div className="relative-form">
                 <span>
-                  {courseData.course_intro_video instanceof File
+                  {/* {courseData.course_intro_video instanceof File
                     ? courseData.course_intro_video.name
-                    : courseData.course_intro_video || "No video selected"}
+                    : courseData.course_intro_video || "No video selected"} */}
+                     {selectedVideo instanceof File
+                    ? selectedVideo.name
+                    : selectedVideo || "No video selected"}
                 </span>
                 <label className="relative-file-upload">
                   Upload File
