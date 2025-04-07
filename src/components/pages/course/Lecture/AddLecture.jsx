@@ -1,4 +1,3 @@
-
 import React, { useCallback, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -24,6 +23,7 @@ const AddLecture = () => {
     resources: null,
     links: "",
     lecture_content: "", // Add lecture_content to state
+    order: 1,
   });
 
   const handleInputChange = (e) => {
@@ -126,7 +126,7 @@ const AddLecture = () => {
   return (
     <div className="main-wrapper">
       <CourseHeader activeMenu={"AddLecture"} />
-        {/* Toast container to display toasts */}
+      {/* Toast container to display toasts */}
       <section className="page-content course-sec">
         <div className="container">
           <div className="row align-items-center">

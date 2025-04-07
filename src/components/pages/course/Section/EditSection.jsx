@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -6,8 +5,8 @@ import Footer from "../../../footer";
 import CourseHeader from "../header";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditSection = () => {
   const { courseid, sectionid } = useParams();
@@ -16,10 +15,14 @@ const EditSection = () => {
   const [sectionData, setSectionData] = useState({
     section_name: "",
     section_objective: "",
+    order: 1,
   });
 
   const [isLoading, setIsLoading] = useState(true);
-  const token = localStorage.getItem("trainerToken") || localStorage.getItem('vendorToken') || localStorage.getItem('adminToken');
+  const token =
+    localStorage.getItem("trainerToken") ||
+    localStorage.getItem("vendorToken") ||
+    localStorage.getItem("adminToken");
   useEffect(() => {
     const loadSectionData = async () => {
       setIsLoading(true);
@@ -36,10 +39,11 @@ const EditSection = () => {
         setSectionData({
           section_name: data.section_name || "",
           section_objective: data.section_objective || "",
+          order: data.order || 1,
         });
       } catch (error) {
         console.error("Error fetching section data:", error);
-        toast.error('Failed to load section data. Please try again.');
+        toast.error("Failed to load section data. Please try again.");
       } finally {
         setIsLoading(false);
       }
@@ -51,6 +55,13 @@ const EditSection = () => {
   const handleInputChange = (e) => {
     setSectionData({ ...sectionData, [e.target.name]: e.target.value });
   };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setSectionData({
+  //     ...sectionData,
+  //     [name]: name === "order" ? Number(value) : value,
+  //   });
+  // };
 
   const handleEditorChange = (event, editor) => {
     const data = editor.getData();
@@ -70,14 +81,14 @@ const EditSection = () => {
         }
       );
       console.log("Section updated successfully:", response.data.data);
-      toast.success('Section updated successfully!');
+      toast.success("Section updated successfully!");
 
       setTimeout(() => {
         navigate(`/course-details/${courseid}`);
       }, 2000); // Navigate after 2 seconds
     } catch (error) {
       console.error("Error updating section:", error);
-      toast.error('Failed to update section. Please try again.');
+      toast.error("Failed to update section. Please try again.");
     }
   };
 
@@ -112,26 +123,32 @@ const EditSection = () => {
             </div>
           </div> */}
           <div className="row align-items-center">
-  <div className="col-12">
-    <div className="add-course-header d-flex flex-column flex-md-row justify-content-between align-items-center">
-      <h2 className="mb-3 mb-md-0">Edit Section</h2>
-      <div className="add-course-btns">
-        <ul className="nav">
-          <li className="nav-item me-2">
-            <Link to={`/course-details/${courseid}`} className="btn btn-primary w-100 w-md-auto">
-              Section-List
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to={`/course-details/${courseid}`} className="btn btn-black w-100 w-md-auto">
-              Back
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+            <div className="col-12">
+              <div className="add-course-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <h2 className="mb-3 mb-md-0">Edit Section</h2>
+                <div className="add-course-btns">
+                  <ul className="nav">
+                    <li className="nav-item me-2">
+                      <Link
+                        to={`/course-details/${courseid}`}
+                        className="btn btn-primary w-100 w-md-auto"
+                      >
+                        Section-List
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        to={`/course-details/${courseid}`}
+                        className="btn btn-black w-100 w-md-auto"
+                      >
+                        Back
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="row">
             <div className="col-md-12">
@@ -145,7 +162,9 @@ const EditSection = () => {
                       <div className="add-course-form">
                         <form action="#">
                           <div className="input-block">
-                            <label className="add-course-label">Section Name</label>
+                            <label className="add-course-label">
+                              Section Name
+                            </label>
                             <input
                               type="text"
                               className="form-control"
@@ -156,7 +175,9 @@ const EditSection = () => {
                             />
                           </div>
                           <div className="input-block mb-0">
-                            <label className="add-course-label">Section Objective</label>
+                            <label className="add-course-label">
+                              Section Objective
+                            </label>
                             <div id="editor">
                               <CKEditor
                                 editor={ClassicEditor}
@@ -168,7 +189,10 @@ const EditSection = () => {
                         </form>
                       </div>
                       <div className="widget-btn">
-                        <button className="btn btn-info-light" onClick={handleSave}>
+                        <button
+                          className="btn btn-info-light"
+                          onClick={handleSave}
+                        >
                           Save Section
                         </button>
                       </div>
