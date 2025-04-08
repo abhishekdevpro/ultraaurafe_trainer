@@ -327,7 +327,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { FcGoogle } from "react-icons/fc";
 import logo5 from "../../../assets/Ultra_Aura.png";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 // Styled components
 const SignUpText = styled.div`
@@ -348,27 +348,27 @@ const SignUpText = styled.div`
 `;
 
 const Login = () => {
-  const [token, setToken] = useState();
-  useEffect(() => {
-    // Extract the token directly from the URL
-    const url = window.location.href;
-    const tokenFromUrl = url.split("/?")[1]; // Gets the token part after `/?`
+  // const [token, setToken] = useState();
+  // useEffect(() => {
+  //   // Extract the token directly from the URL
+  //   const url = window.location.href;
+  //   const tokenFromUrl = url.split("/?")[1]; // Gets the token part after `/?`
 
-    if (tokenFromUrl) {
-      // Save token to localStorage and state
-      localStorage.setItem("token", tokenFromUrl);
-      setToken(tokenFromUrl);
-    } else if (typeof window !== "undefined") {
-      // Retrieve token from localStorage if not found in URL
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
-    }
-  }, []);
+  //   if (tokenFromUrl) {
+  //     // Save token to localStorage and state
+  //     localStorage.setItem("token", tokenFromUrl);
+  //     setToken(tokenFromUrl);
+  //   } else if (typeof window !== "undefined") {
+  //     // Retrieve token from localStorage if not found in URL
+  //     const storedToken = localStorage.getItem("token");
+  //     setToken(storedToken);
+  //   }
+  // }, []);
 
-  if (!token) {
-    return null; // Exit if no token
-  }
-  console.log(token);
+  // if (!token) {
+  //   return null; // Exit if no token
+  // }
+  // console.log(token);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
