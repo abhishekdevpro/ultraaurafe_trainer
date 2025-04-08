@@ -174,6 +174,20 @@ const AddLecture = () => {
                           </div>
                           <div className="input-block">
                             <label className="add-course-label">
+                              Lecture Order
+                            </label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              placeholder="Enter lecture order"
+                              name="order"
+                              value={lectureData.order}
+                              onChange={handleInputChange}
+                              min="1"
+                            />
+                          </div>
+                          <div className="input-block">
+                            <label className="add-course-label">
                               Files (MP4 only)
                             </label>
                             <div className="relative-form">

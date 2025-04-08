@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { toast} from "react-toastify";
+import { toast } from "react-toastify";
 import Footer from "../../../footer";
 import CourseHeader from "../header";
 import ReactQuill from "react-quill";
@@ -19,6 +19,7 @@ const EditLecture = () => {
     lecture_name: "",
     links: "",
     lecture_content: "",
+    order: "",
   });
   const [videoFile, setVideoFile] = useState(null); // Separate state for video
   const [pdfFile, setPdfFile] = useState(null); // Separate state for PDF
@@ -49,6 +50,7 @@ const EditLecture = () => {
 
         setLectureData({
           lecture_name: data.lecture_name,
+          order: data.order,
           links: parsedLinks || "",
           lecture_content: data.lecture_content,
         });
@@ -88,6 +90,7 @@ const EditLecture = () => {
       try {
         const formData = new FormData();
         formData.append("lecture_name", lectureData.lecture_name);
+        formData.append("order", lectureData.order);
         formData.append("lecture_content", lectureData.lecture_content);
 
         // Append video file if it's changed
@@ -125,13 +128,23 @@ const EditLecture = () => {
         setIsLoading(false);
       }
     }, 300),
-    [courseid, sectionid, lectureid, token, lectureData, videoFile, pdfFile, isLoading, navigate]
+    [
+      courseid,
+      sectionid,
+      lectureid,
+      token,
+      lectureData,
+      videoFile,
+      pdfFile,
+      isLoading,
+      navigate,
+    ]
   );
 
   return (
     <div className="main-wrapper">
       <CourseHeader activeMenu={"EditLecture"} />
-       
+
       <section className="page-content course-sec">
         <div className="container">
           <div className="row align-items-center">
@@ -174,6 +187,17 @@ const EditLecture = () => {
                               placeholder="Enter lecture name"
                               name="lecture_name"
                               value={lectureData.lecture_name}
+                              onChange={handleInputChange}
+                            />
+                          </div>
+                          <div className="input-block">
+                            <label className="add-course-label">Order By</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Enter Order ID"
+                              name="order"
+                              value={lectureData.order}
                               onChange={handleInputChange}
                             />
                           </div>

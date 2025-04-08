@@ -109,10 +109,7 @@ const StudentOrderHistory = () => {
                                 <td>$34</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -129,10 +126,7 @@ const StudentOrderHistory = () => {
                                 <td>$40</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -148,10 +142,7 @@ const StudentOrderHistory = () => {
                                 <td>$25</td>
                                 <td>Completed</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -168,10 +159,7 @@ const StudentOrderHistory = () => {
                                 <td>$35</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -208,10 +196,7 @@ const StudentOrderHistory = () => {
                                 <td>$34</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -228,10 +213,7 @@ const StudentOrderHistory = () => {
                                 <td>$40</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -268,10 +250,7 @@ const StudentOrderHistory = () => {
                                 <td>$34</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -288,10 +267,7 @@ const StudentOrderHistory = () => {
                                 <td>$40</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -307,10 +283,7 @@ const StudentOrderHistory = () => {
                                 <td>$25</td>
                                 <td>Completed</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
@@ -327,10 +300,7 @@ const StudentOrderHistory = () => {
                                 <td>$35</td>
                                 <td>On Hold</td>
                                 <td>
-                                  <Link
-                                    to="#"
-                                    className="action-icon"
-                                  >
+                                  <Link to="#" className="action-icon">
                                     <i className="bx bxs-download" />
                                   </Link>
                                 </td>
