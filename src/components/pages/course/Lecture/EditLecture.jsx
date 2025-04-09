@@ -56,8 +56,18 @@ const EditLecture = () => {
         });
 
         // Set existing files (if any) separately
-        setVideoFile(data.lecture_videos[0]?.video_url || null);
-        setPdfFile(data.lecture_resources_pdf[0] || null);
+        // setVideoFile(data.lecture_videos[0]?.video_url || null);
+        // setPdfFile(data.lecture_resources_pdf[0] || null);
+        setVideoFile(
+          Array.isArray(data.lecture_videos)
+            ? data.lecture_videos[0]?.video_url || null
+            : null
+        );
+        setPdfFile(
+          Array.isArray(data.lecture_resources_pdf)
+            ? data.lecture_resources_pdf[0] || null
+            : null
+        );
       } catch (error) {
         console.error("Error fetching lecture data:", error);
         toast.error("Error fetching lecture data.");
