@@ -55,7 +55,7 @@
 //                 placeholder="Select Category"
 //                 styles={selectStyle}
 //                 isMulti
-//                 value={categoryOptions.filter((option) => 
+//                 value={categoryOptions.filter((option) =>
 //                   courseData.course_category_ids?.includes(option.value)
 //                 )}
 //               />
@@ -79,7 +79,7 @@
 //                 placeholder="Select Level"
 //                 styles={selectStyle}
 //                 isMulti
-//                 value={levelOptions.filter((option) => 
+//                 value={levelOptions.filter((option) =>
 //                   courseData.course_level_ids?.includes(option.value)
 //                 )}
 //               />
@@ -102,7 +102,7 @@
 //                 onChange={handleSelectChange("course_language_name")}
 //                 placeholder="Select Language"
 //                 styles={selectStyle}
-//                 value={languageOptions.find((option) => 
+//                 value={languageOptions.find((option) =>
 //                   option.value === courseData.course_language_name
 //                 ) || null}
 //               />
@@ -264,13 +264,13 @@
 
 // export default BasicInfoForm
 
-"use client"
-import { Link } from "react-router-dom"
-import Select, { components } from "react-select"
-import FeatherIcon from "feather-icons-react"
-import ReactQuill from "react-quill"
-import styled from "styled-components"
-import PropTypes from "prop-types"
+"use client";
+import { Link } from "react-router-dom";
+import Select, { components } from "react-select";
+import FeatherIcon from "feather-icons-react";
+import ReactQuill from "react-quill";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledSelect = styled(Select)`
   .select__control {
@@ -298,20 +298,22 @@ const StyledSelect = styled(Select)`
   }
 
   .select__option {
-    background-color: ${(props) => (props.mobileSidebar === "disabled" ? "#fff" : "#000")};
+    background-color: ${(props) =>
+      props.mobileSidebar === "disabled" ? "#fff" : "#000"};
     color: ${(props) => (props.mobileSidebar === "disabled" ? "#000" : "#fff")};
     font-size: 14px;
 
     &:hover {
-      background-color: ${(props) => (props.mobileSidebar === "disabled" ? "#FFDEDA" : "#2b2838")};
+      background-color: ${(props) =>
+        props.mobileSidebar === "disabled" ? "#FFDEDA" : "#2b2838"};
     }
   }
-`
+`;
 
 const DropdownIcon = styled(FeatherIcon)`
   width: 18px;
   height: 18px;
-`
+`;
 
 const BasicInfoTab = ({
   courseData,
@@ -328,22 +330,22 @@ const BasicInfoTab = ({
       ...provided,
       minHeight: "44px",
     }),
-  }
+  };
 
   const DropdownIndicator = (props) => {
     return (
       <components.DropdownIndicator {...props}>
         <DropdownIcon icon="chevron-down" />
       </components.DropdownIndicator>
-    )
-  }
+    );
+  };
 
   const languageOptions = [
     { label: "English", value: "English" },
     { label: "Spanish", value: "Spanish" },
     { label: "French", value: "French" },
     { label: "German", value: "German" },
-  ]
+  ];
 
   return (
     <div className="add-course-info">
@@ -364,11 +366,13 @@ const BasicInfoTab = ({
             />
           </div>
           <div className="input-block">
-            <label className="add-course-label">Courses Category</label>
+            <label className="add-course-label">Course Category</label>
             <StyledSelect
               options={categoryOptions}
               onChange={handleSelectChange("course_category_id")}
-              value={categoryOptions.find((option) => option.value === courseData.course_category_id)}
+              value={categoryOptions.find(
+                (option) => option.value === courseData.course_category_id
+              )}
               placeholder="Select Category"
               styles={customStyles}
               components={{ DropdownIndicator }}
@@ -376,11 +380,13 @@ const BasicInfoTab = ({
             />
           </div>
           <div className="input-block">
-            <label className="add-course-label">Courses Level</label>
+            <label className="add-course-label">Course Level</label>
             <StyledSelect
               options={levelOptions}
               onChange={handleSelectChange("course_level_id")}
-              value={levelOptions.find((option) => option.value === courseData.course_level_id)}
+              value={levelOptions.find(
+                (option) => option.value === courseData.course_level_id
+              )}
               placeholder="Select Level"
               styles={customStyles}
               components={{ DropdownIndicator }}
@@ -392,7 +398,9 @@ const BasicInfoTab = ({
             <StyledSelect
               options={languageOptions}
               onChange={handleSelectChange("course_language")}
-              value={languageOptions.find((option) => option.value === courseData.course_language)}
+              value={languageOptions.find(
+                (option) => option.value === courseData.course_language
+              )}
               placeholder="Select Language"
               styles={customStyles}
               components={{ DropdownIndicator }}
@@ -454,17 +462,24 @@ const BasicInfoTab = ({
         </form>
       </div>
       <div className="widget-btn">
-        <Link to="#" className="btn btn-info-light next_btn" onClick={onContinue}>
+        <Link
+          to="#"
+          className="btn btn-info-light next_btn"
+          onClick={onContinue}
+        >
           Continue
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 BasicInfoTab.propTypes = {
   courseData: PropTypes.shape({
     course_title: PropTypes.string,
-    course_category_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    course_category_id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     course_level_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     course_language: PropTypes.string,
     course_description: PropTypes.string,
@@ -473,10 +488,16 @@ BasicInfoTab.propTypes = {
     time_spent_on_course: PropTypes.string,
   }).isRequired,
   categoryOptions: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) })
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
   ).isRequired,
   levelOptions: PropTypes.arrayOf(
-    PropTypes.shape({ label: PropTypes.string, value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) })
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
   ).isRequired,
   mobileSidebar: PropTypes.string,
   handleInputChange: PropTypes.func.isRequired,
@@ -484,5 +505,4 @@ BasicInfoTab.propTypes = {
   handleQuillChange: PropTypes.func.isRequired,
   onContinue: PropTypes.func.isRequired,
 };
-export default BasicInfoTab
-
+export default BasicInfoTab;
