@@ -26,6 +26,12 @@ const AddLecture = () => {
     order: 1,
   });
 
+  const [uploadType, setUploadType] = useState("upload"); // "upload" or "youtube"
+
+  const handleYoutubeChange = (e) => {
+    setLectureData({ ...lectureData, youtube_url: e.target.value });
+  };
+  
   const handleInputChange = (e) => {
     setLectureData({ ...lectureData, [e.target.name]: e.target.value });
   };
@@ -39,42 +45,6 @@ const AddLecture = () => {
     setLectureData({ ...lectureData, lecture_content: value }); // Update lecture_content
   };
 
-  // const handleSave = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     for (const key in lectureData) {
-  //       if (lectureData[key]) {
-  //         formData.append(key, lectureData[key]);
-  //       }
-  //     }
-  //     const response = await axios.post(
-  //       `https://api.novajobs.us/api/trainers/${courseid}/${sectionid}/upload`,
-  //       formData,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //           Authorization: `${token}`,
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Lecture saved successfully:", response.data);
-
-  //     // Store the lecture data in session storage
-  //     sessionStorage.setItem("lectureData", JSON.stringify(lectureData));
-
-  //     // Show success toast
-  //     toast.success("Lecture saved successfully!");
-
-  //     // Navigate after a short delay to allow the toast to be visible
-  //     setTimeout(() => {
-  //       navigate(`/course-details/${courseid}`);
-  //     }, 2000); // 2 seconds delay
-  //   } catch (error) {
-  //     console.error("Error saving lecture:", error);
-  //     toast.error("Error saving lecture. Please try again.");
-  //   }
-  // };
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -187,26 +157,64 @@ const AddLecture = () => {
                             />
                           </div>
                           <div className="input-block">
-                            <label className="add-course-label">
-                              Files (MP4 only)
-                            </label>
-                            <div className="relative-form">
-                              <span>
-                                {lectureData.files
-                                  ? lectureData.files.name
-                                  : "No File Selected"}
-                              </span>
-                              <label className="relative-file-upload">
-                                Upload File
-                                <input
-                                  type="file"
-                                  name="files"
-                                  accept=".mp4"
-                                  onChange={handleFileChange}
-                                />
-                              </label>
-                            </div>
-                          </div>
+  <label className="add-course-label">Video Source</label>
+
+  {/* Radio buttons */}
+  <div className="d-flex gap-4 mb-3">
+    <label className="d-flex align-items-center gap-2">
+      <input
+        type="radio"
+        name="uploadType"
+        value="upload"
+           className="form-check-input"
+        checked={uploadType === "upload"}
+        onChange={() => setUploadType("upload")}
+      />
+      Upload Video File
+    </label>
+    <label className="d-flex align-items-center gap-2">
+      <input
+        type="radio"
+        name="uploadType"
+        value="youtube"
+         className="form-check-input"
+        checked={uploadType === "youtube"}
+        onChange={() => setUploadType("youtube")}
+      />
+      Add YouTube URL
+    </label>
+  </div>
+
+  {/* Conditionally show Upload or YouTube URL field */}
+  {uploadType === "upload" ? (
+    <div className="relative-form">
+      <span>
+        {lectureData.files
+          ? lectureData.files.name
+          : "No File Selected"}
+      </span>
+      <label className="relative-file-upload">
+        Upload File
+        <input
+          type="file"
+          name="files"
+          accept=".mp4"
+          onChange={handleFileChange}
+        />
+      </label>
+    </div>
+  ) : (
+    <input
+      type="text"
+      name="youtube_url"
+      placeholder="Enter YouTube URL"
+      className="form-control"
+      value={lectureData.youtube_url || ""}
+      onChange={handleYoutubeChange}
+    />
+  )}
+</div>
+
                           <div className="input-block">
                             <label className="add-course-label">
                               Resources (PDF only)

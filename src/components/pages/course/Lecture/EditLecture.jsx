@@ -25,6 +25,7 @@ const EditLecture = () => {
   const [pdfFile, setPdfFile] = useState(null); // Separate state for PDF
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const [uploadType, setUploadType] = useState("upload"); // "upload" or "youtube"
 
   // Fetch lecture data to edit
   useEffect(() => {
@@ -92,6 +93,10 @@ const EditLecture = () => {
     setLectureData({ ...lectureData, lecture_content: value });
   };
 
+  const handleYoutubeChange = (e) => {
+    setLectureData({ ...lectureData, youtube_url: e.target.value });
+  };
+  
   const handleSave = useCallback(
     debounce(async () => {
       if (isLoading) return;
@@ -212,28 +217,64 @@ const EditLecture = () => {
                             />
                           </div>
                           <div className="input-block">
-                            <label className="add-course-label">
-                              Video (MP4 only)
-                            </label>
-                            <div className="relative-form">
-                              <span>
-                                {videoFile
-                                  ? typeof videoFile === "string"
-                                    ? videoFile
-                                    : videoFile.name
-                                  : "No File Selected"}
-                              </span>
-                              <label className="relative-file-upload">
-                                Upload Video
-                                <input
-                                  type="file"
-                                  name="video"
-                                  accept=".mp4"
-                                  onChange={handleVideoFileChange}
-                                />
-                              </label>
-                            </div>
-                          </div>
+  <label className="add-course-label">Video Source</label>
+
+  {/* Radio buttons */}
+  <div className="d-flex gap-4 mb-3">
+    <label className="d-flex align-items-center gap-2">
+      <input
+        type="radio"
+        name="uploadType"
+        value="upload"
+         className="form-check-input"
+        checked={uploadType === "upload"}
+        onChange={() => setUploadType("upload")}
+      />
+      Upload Video File
+    </label>
+    <label className="d-flex align-items-center gap-2">
+      <input
+        type="radio"
+        name="uploadType"
+         className="form-check-input"
+        value="youtube"
+        checked={uploadType === "youtube"}
+        onChange={() => setUploadType("youtube")}
+      />
+      Add YouTube URL
+    </label>
+  </div>
+
+  {/* Conditionally show Upload or YouTube URL field */}
+  {uploadType === "upload" ? (
+    <div className="relative-form">
+      <span>
+        {lectureData.files
+          ? lectureData.files.name
+          : "No File Selected"}
+      </span>
+      <label className="relative-file-upload">
+        Upload File
+        <input
+          type="file"
+          name="files"
+          accept=".mp4"
+          onChange={handleVideoFileChange}
+        />
+      </label>
+    </div>
+  ) : (
+    <input
+      type="text"
+      name="youtube_url"
+      placeholder="Enter YouTube URL"
+      className="form-control"
+      value={lectureData.youtube_url || ""}
+      onChange={handleYoutubeChange}
+    />
+  )}
+</div>
+
                           <div className="input-block">
                             <label className="add-course-label">
                               Resources (PDF only)
