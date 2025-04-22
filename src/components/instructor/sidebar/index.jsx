@@ -3,10 +3,65 @@ import StickyBox from "react-sticky-box";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import profilelogo from "../../../assets/img/profile-pro.png";
+import profilelogo from "../../../assets/img/profile-pro.png"
+import styled from "styled-components";
+
+const SidebarContainer = styled.div`
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: ${props => (props.isOpen ? '0' : '-260px')};
+    width: 260px;
+    height: 100%;
+    background: #fff;
+    z-index: 1000;
+    transition: left 0.3s ease-in-out;
+  }
+`;
+
+const Backdrop = styled.div`
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+`;
+
+const ToggleButton = styled.button`
+  position: fixed;
+  top: 130px;
+  left: 320px;
+  z-index: 11000;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
 // eslint-disable-next-line react/prop-types
 export default function InstructorSidebar() {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const [profile, setProfile] = useState(null); // State to store profile data
   const [loading, setLoading] = useState(true); // State to manage loading state
@@ -259,34 +314,32 @@ export default function InstructorSidebar() {
             {/* <h3>Instructor</h3> */}
             <ul>
               {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-course' ? 'active' : ''}`}>
+                  <Link to="/instructor/instructor-course" className="nav-link ">
+                    <i className="bx bxs-rocket" />
+                    My Courses
+                  </Link>
+                </li> */}
+                {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-announcement' ? 'active' : ''}`}>
 
-                <Link to="/instructor/instructor-course" className="nav-link ">
-                  <i className="bx bxs-rocket" />
-                  My Courses
-                </Link>
-              </li> */}
-              {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-announcement' ? 'active' : ''}`}>
+                  <Link to="/instructor/instructor-announcement" className="nav-link">
+                    <i className="bx bxs-volume-full" />
+                    Announcements
+                  </Link>
+                </li> */}
+                {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-withdraw' ? 'active' : ''}`}>
 
-                <Link to="/instructor/instructor-announcement" className="nav-link">
-                  <i className="bx bxs-volume-full" />
-                  Announcements
-                </Link>
-              </li> */}
-              {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-withdraw' ? 'active' : ''}`}>
-
-                <Link to="/instructor/instructor-withdraw" className="nav-link ">
-                  <i className="bx bxs-wallet" />
-                  Withdrawls
-                </Link>
-              </li> */}
-              {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-quiz-attempts' ? 'active' : ''}`}>
-                <Link to="/instructor/instructor-quiz-attempts" className="nav-link">
-                  <i className="bx bxs-shapes" />
-                  Quiz Attempts
-                </Link>
-              </li> */}
-              {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-assignment' ? 'active' : ''}`}>
-
+                  <Link to="/instructor/instructor-withdraw" className="nav-link ">
+                    <i className="bx bxs-wallet" />
+                    Withdrawls
+                  </Link>
+                </li> */}
+                {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-quiz-attempts' ? 'active' : ''}`}>
+                  <Link to="/instructor/instructor-quiz-attempts" className="nav-link">
+                    <i className="bx bxs-shapes" />
+                    Quiz Attempts
+                  </Link>
+                </li> */}
+                {/* <li className={`nav-item ${location.pathname === '/instructor/instructor-assignment' ? 'active' : ''}`}>
                 <Link to="/instructor/instructor-assignment" className="nav-link ">
                   <i className="bx bxs-file" />
                   Assignments
@@ -331,8 +384,8 @@ export default function InstructorSidebar() {
               </li>
             </ul>
           </div>
-        </div>
-      </StickyBox>
-    </div>
+        </StickyBox>
+      </SidebarContainer>
+    </>
   );
 }
