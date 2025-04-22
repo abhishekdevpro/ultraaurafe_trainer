@@ -465,7 +465,7 @@ export function InstructorHeader() {
   const [trainerData, setTrainerData] = useState(null);
   const navigate = useNavigate();
 
-  // useEffect(() => {
+ 
   //   const fetchTrainerData = async () => {
   //     try {
   //       const token = localStorage.getItem("trainerToken");

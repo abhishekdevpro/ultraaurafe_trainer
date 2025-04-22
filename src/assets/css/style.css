@@ -12295,11 +12295,12 @@ input[type="password"]::-ms-clear {
 }
 .breadcrumb-bar {
   background: #fff;
-  padding: 25px 0;
+  padding: 35px 0;
 }
 .breadcrumb-list {
   display: flex;
   align-items: center;
+ 
   justify-content: space-between;
 }
 .breadcrumb-bar .breadcrumb-title {
@@ -12307,6 +12308,8 @@ input[type="password"]::-ms-clear {
   font-size: 35px;
   font-weight: 700;
   margin-bottom: 0;
+  padding-top: 70px;
+  height: 100px;
 }
 .page-breadcrumb ol {
   background-color: transparent;
