@@ -22,7 +22,7 @@ export const AllotedCourses = () => {
           <div className="row">
             <div className="col-md-12 col-12 pt-4">
               <div className="breadcrumb-list">
-                <h2 className="breadcrumb-title">Dashboard</h2>
+                <h2 className="breadcrumb-title">Alloted Course List</h2>
                 {/* <nav aria-label="breadcrumb" className="page-breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
