@@ -174,6 +174,7 @@ import JoinLiveClass from "./components/instructor/LiveClasses/ForStudent/JoinLi
 import Gauth from "./components/pages/login/G-auth.jsx";
 import LoginCode from "./components/pages/login/LoginCode.jsx";
 import LoginWithPassword from "./components/pages/login/loginwithpassword.jsx";
+import AllotedCourses from "./components/instructor/AllotedCourse/index.js";
 
 const Approuter = () => {
   const trainerToken = localStorage.getItem("trainerToken");
@@ -326,6 +327,10 @@ const Approuter = () => {
           <Route
             path="/instructor/instructor-dashboard"
             element={<Dashboard />}
+          />
+          <Route
+            path="/instructor/instructor-alloted-courses"
+            element={<AllotedCourses />}
           />
           <Route path="/instructor/coming-soon" element={<Coming />} />
           <Route
