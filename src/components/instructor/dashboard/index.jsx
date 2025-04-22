@@ -1,4 +1,3 @@
-
 // import React, { useState, useEffect } from "react";
 import Footer from "../../footer";
 import { InstructorHeader } from "../../instructor/header";
@@ -13,6 +12,16 @@ const DashboardGrid = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 24px;
   padding: 2rem;
+
+  @media (max-width: 768px) {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 const DashboardCard = styled.div`
@@ -38,6 +47,12 @@ const DashboardCard = styled.div`
     font-size: 0.9rem;
     color: #444;
     margin-bottom: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    min-width: 80%;
+    scroll-snap-align: start;
+    flex: 0 0 auto;
   }
 `;
 
