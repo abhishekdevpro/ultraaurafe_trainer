@@ -7,7 +7,7 @@ import { Icon19, Icon20 } from "../imagepath";
 import logo5 from "../../assets/Ultra_Aura.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import SupportPopup from "./SupportPopup.jsx";
 // Styled Components
 const FooterWrapper = styled.footer`
   background-color: #f8f9fa;
@@ -275,7 +275,7 @@ const CopyrightText = styled.p`
 
 const Footer = () => {
   const [email, setEmail] = useState('');
-
+  const [isSupportOpen, setIsSupportOpen] = useState(false);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -348,6 +348,9 @@ const Footer = () => {
                 <FooterTitle>About us</FooterTitle>
                 <FooterMenuList>
                   <li><Link to="/about-us">About Us</Link></li>
+                  <li>
+                    <Link to="#" onClick={e => { e.preventDefault(); setIsSupportOpen(true); }}>Support</Link>
+                  </li>
                   <li><Link to="/careers">Careers</Link></li>
                   <li><Link to="/trainers">Trainers</Link></li>
                 </FooterMenuList>
@@ -389,6 +392,7 @@ const Footer = () => {
           </Copyright>
         </Container>
       </FooterBottom>
+      <SupportPopup isOpen={isSupportOpen} onClose={() => setIsSupportOpen(false)} />
     </FooterWrapper>
   );
 };
