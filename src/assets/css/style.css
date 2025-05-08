@@ -141,7 +141,8 @@ label {
 }
 .form-control {
   border-color: #dce0eb;
-  color: #685f78;
+  /* color: #685f78; */
+
   font-size: 15px;
   min-height: 44px;
   padding: 6px 15px;

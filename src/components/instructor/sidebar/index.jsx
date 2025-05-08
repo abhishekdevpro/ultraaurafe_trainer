@@ -546,7 +546,7 @@ export default function InstructorSidebar() {
                     Add New Course
                   </Link>
                   <a
-                    href="https://drive.google.com/file/d/19d3qnUE-9brnl7iX-dgQ9V9sxjZL_CO6/view?usp=drive_link"
+                    href="https://drive.google.com/file/d/1gDhFWCmSQnsOZx7DCFUo59921D1MR-6a/view"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="add-course btn-primary"
