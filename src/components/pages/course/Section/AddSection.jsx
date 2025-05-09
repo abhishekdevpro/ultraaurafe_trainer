@@ -212,7 +212,8 @@ const AddSection = () => {
                 <div className="widget-set">
                   <div className="widget-content multistep-form">
                     <div className="add-course-info">
-                      <div className="add-course-inner-header">
+                      <div className="add-course-inner-header mt-5">
+                        <br/>
                         <h4>Section Information</h4>
                       </div>
                       <div className="add-course-form">
