@@ -1,15 +1,14 @@
-
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Footer from "../../../footer";
 import CourseHeader from "../header";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import styled from 'styled-components';
-import FeatherIcon from 'feather-icons-react';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styled from "styled-components";
+import FeatherIcon from "feather-icons-react";
 import { debounce } from "lodash";
 
 // Styled components
@@ -37,8 +36,7 @@ const Title = styled.h2`
 
   @media (max-width: 768px) {
     margin-bottom: 15px;
-  font-size: 18px;
-
+    font-size: 18px;
   }
 `;
 
@@ -54,7 +52,6 @@ const ButtonGroup = styled.ul`
 
     @media (max-width: 768px) {
       margin-left: 0;
-
     }
   }
 
@@ -80,7 +77,7 @@ const ButtonGroup = styled.ul`
       padding: 2px;
       justify-content: center;
       font-size: 5px;
-      gap:1rem;
+      gap: 1rem;
 
       & > span {
         display: none; /* Hide text on smaller screens */
@@ -97,17 +94,14 @@ const ButtonGroup = styled.ul`
   }
 `;
 
-
 const AddSection = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   const [sectionData, setSectionData] = useState({
     section_name: sessionStorage.getItem("section_name") || "",
     section_objective: sessionStorage.getItem("section_objective") || "",
   });
-
- 
 
   const handleInputChange = (e) => {
     setSectionData({ ...sectionData, [e.target.name]: e.target.value });
@@ -133,7 +127,7 @@ const AddSection = () => {
   //     );
   //     console.log("Section saved successfully:", response.data.data);
   //     toast.success('Section created successfully!');
-      
+
   //     // Clear session storage after successful save
   //     // sessionStorage.removeItem("section_name");
   //     // sessionStorage.removeItem("section_objective");
@@ -153,7 +147,10 @@ const AddSection = () => {
 
     setIsLoading(true);
     try {
-      const token = localStorage.getItem("trainerToken") || localStorage.getItem('adminToken') || localStorage.getItem('vendorToken');
+      const token =
+        localStorage.getItem("trainerToken") ||
+        localStorage.getItem("adminToken") ||
+        localStorage.getItem("vendorToken");
       const response = await axios.post(
         `https://api.novajobs.us/api/trainers/${id}/section`,
         sectionData,
@@ -165,14 +162,14 @@ const AddSection = () => {
         }
       );
       console.log("Section saved successfully:", response.data.data);
-      toast.success('Section created successfully!');
+      toast.success("Section created successfully!");
 
       setTimeout(() => {
         navigate(`/course-details/${id}`);
       }, 2000); // Navigate after 2 seconds
     } catch (error) {
       console.error("Error saving section:", error);
-      toast.error('Failed to create section. Please try again.');
+      toast.error("Failed to create section. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -186,24 +183,29 @@ const AddSection = () => {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
-            <HeaderWrapper>
-      <Title>Add New Section</Title>
-      <ButtonGroup>
-        
-        <li>
-          <Link to={`/course-details/${id}`} className="btn btn-primary">
-            <FeatherIcon icon="list" />
-            <span>Section-List</span>
-          </Link>
-        </li>
-        <li>
-          <Link to={`/course-details/${id}`} className="btn btn-black">
-            <FeatherIcon icon="arrow-left" />
-            <span>Back</span>
-          </Link>
-        </li>
-      </ButtonGroup>
-    </HeaderWrapper>
+              <HeaderWrapper>
+                <Title>Add New Section</Title>
+                <ButtonGroup>
+                  <li>
+                    <Link
+                      to={`/course-details/${id}`}
+                      className="btn btn-primary"
+                    >
+                      <FeatherIcon icon="list" />
+                      <span>Section-List</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={`/course-details/${id}`}
+                      className="btn btn-black"
+                    >
+                      <FeatherIcon icon="arrow-left" />
+                      <span>Back</span>
+                    </Link>
+                  </li>
+                </ButtonGroup>
+              </HeaderWrapper>
             </div>
           </div>
           <div className="row">
@@ -212,14 +214,20 @@ const AddSection = () => {
                 <div className="widget-set">
                   <div className="widget-content multistep-form">
                     <div className="add-course-info">
+
                       <div className="add-course-inner-header mt-5">
                         <br/>
+
+                      <div className="add-course-inner-header mt-4">
+
                         <h4>Section Information</h4>
                       </div>
                       <div className="add-course-form">
                         <form action="#">
                           <div className="input-block">
-                            <label className="add-course-label">Section Name</label>
+                            <label className="add-course-label">
+                              Section Name
+                            </label>
                             <input
                               type="text"
                               className="form-control"
@@ -230,7 +238,9 @@ const AddSection = () => {
                             />
                           </div>
                           <div className="input-block mb-0">
-                            <label className="add-course-label">Section Objective</label>
+                            <label className="add-course-label">
+                              Section Objective
+                            </label>
                             <div id="editor">
                               <CKEditor
                                 editor={ClassicEditor}
@@ -242,20 +252,24 @@ const AddSection = () => {
                         </form>
                       </div>
                       <div className="widget-btn">
-                      <button 
-      onClick={handleSave} 
-      disabled={isLoading}
-      className="btn btn-primary"
-    >
-      {isLoading ? (
-        <>
-          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-          Saving...
-        </>
-      ) : (
-        'Save'
-      )}
-    </button>
+                        <button
+                          onClick={handleSave}
+                          disabled={isLoading}
+                          className="btn btn-primary"
+                        >
+                          {isLoading ? (
+                            <>
+                              <span
+                                className="spinner-border spinner-border-sm me-2"
+                                role="status"
+                                aria-hidden="true"
+                              ></span>
+                              Saving...
+                            </>
+                          ) : (
+                            "Save"
+                          )}
+                        </button>
                       </div>
                     </div>
                   </div>
