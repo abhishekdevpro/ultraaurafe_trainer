@@ -214,62 +214,61 @@ const AddSection = () => {
                 <div className="widget-set">
                   <div className="widget-content multistep-form">
                     <div className="add-course-info">
-
                       <div className="add-course-inner-header mt-5">
-                        <br/>
+                        <br />
 
-                      <div className="add-course-inner-header mt-4">
-
-                        <h4>Section Information</h4>
-                      </div>
-                      <div className="add-course-form">
-                        <form action="#">
-                          <div className="input-block">
-                            <label className="add-course-label">
-                              Section Name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Enter section name"
-                              name="section_name"
-                              value={sectionData.section_name}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                          <div className="input-block mb-0">
-                            <label className="add-course-label">
-                              Section Objective
-                            </label>
-                            <div id="editor">
-                              <CKEditor
-                                editor={ClassicEditor}
-                                onChange={handleEditorChange}
-                                data={sectionData.section_objective}
+                        <div className="add-course-inner-header mt-4">
+                          <h4>Section Information</h4>
+                        </div>
+                        <div className="add-course-form">
+                          <form action="#">
+                            <div className="input-block">
+                              <label className="add-course-label">
+                                Section Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Enter section name"
+                                name="section_name"
+                                value={sectionData.section_name}
+                                onChange={handleInputChange}
                               />
                             </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div className="widget-btn">
-                        <button
-                          onClick={handleSave}
-                          disabled={isLoading}
-                          className="btn btn-primary"
-                        >
-                          {isLoading ? (
-                            <>
-                              <span
-                                className="spinner-border spinner-border-sm me-2"
-                                role="status"
-                                aria-hidden="true"
-                              ></span>
-                              Saving...
-                            </>
-                          ) : (
-                            "Save"
-                          )}
-                        </button>
+                            <div className="input-block mb-0">
+                              <label className="add-course-label">
+                                Section Objective
+                              </label>
+                              <div id="editor">
+                                <CKEditor
+                                  editor={ClassicEditor}
+                                  onChange={handleEditorChange}
+                                  data={sectionData.section_objective}
+                                />
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div className="widget-btn">
+                          <button
+                            onClick={handleSave}
+                            disabled={isLoading}
+                            className="btn btn-primary"
+                          >
+                            {isLoading ? (
+                              <>
+                                <span
+                                  className="spinner-border spinner-border-sm me-2"
+                                  role="status"
+                                  aria-hidden="true"
+                                ></span>
+                                Saving...
+                              </>
+                            ) : (
+                              "Save"
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
