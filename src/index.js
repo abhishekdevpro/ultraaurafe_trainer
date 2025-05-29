@@ -32,6 +32,7 @@
 // );
 
 import ReactDOM from "react-dom/client";
+import { useEffect } from "react";
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -59,12 +60,47 @@ import store from "./components/common/redux/store.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS
 
+// Inject Google Translate script dynamically
+function GoogleTranslate() {
+  useEffect(() => {
+    const addScript = () => {
+      const script = document.createElement("script");
+      script.src =
+        "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
+    };
+
+    window.googleTranslateElementInit = () => {
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          includedLanguages: "en,fr,de,es,it,pt,hi,zh-CN,ar",
+          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+        },
+        "google_translate_element"
+      );
+    };
+
+    addScript();
+  }, []);
+
+  return (
+    <div
+      id="google_translate_element"
+      className="google-translate-widget"
+      title="Translate"
+    ></div>
+  );
+}
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
     <Provider store={store}>
+      <GoogleTranslate />
       <Approuter />
-      <ToastContainer 
+      <ToastContainer
         position="top-right"
         autoClose={5000}
         hideProgressBar={false}
