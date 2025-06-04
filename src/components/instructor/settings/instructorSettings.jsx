@@ -35,7 +35,7 @@ const InstructorSettings = () => {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [photoPreview, setPhotoPreview] = useState("");
-  const [previewImage, setPreviewImage] = useState(null);
+  // const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     fetchUserData();
@@ -161,12 +161,8 @@ const InstructorSettings = () => {
       photo: file,
     }));
 
-    // Create a preview of the selected image
-
     if (file) {
-      setPreviewImage(file);
       const reader = new FileReader();
-
       reader.onloadend = () => {
         setPhotoPreview(reader.result);
       };
@@ -174,6 +170,25 @@ const InstructorSettings = () => {
     }
   };
 
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     photo: file,
+  //   }));
+
+  //   // Create a preview of the selected image
+
+  //   if (file) {
+  //     setPreviewImage(file);
+  //     const reader = new FileReader();
+
+  //     reader.onloadend = () => {
+  //       setPhotoPreview(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -184,15 +199,17 @@ const InstructorSettings = () => {
     let hasChanges = false;
 
     for (const key in formData) {
-      if (formData[key] !== initialFormData[key]) {
+      if (key !== "photo" && formData[key] !== initialFormData[key]) {
         formDataToSend.append(key, formData[key]);
         hasChanges = true;
       }
     }
-    // Append photo file separately if it exists
-    if (previewImage) {
-      formData.append("photo", previewImage);
+
+    if (formData.photo instanceof File) {
+      formDataToSend.append("photo", formData.photo);
+      hasChanges = true;
     }
+
     if (!hasChanges) {
       setLoading(false);
       setSuccess("No changes to update.");
@@ -213,7 +230,7 @@ const InstructorSettings = () => {
       setSuccess("Profile updated successfully.");
       toast.success("Profile updated successfully.");
       setInitialFormData({ ...formData, photo: null });
-      fetchUserData(); // Refresh the user data to show the updated photo
+      fetchUserData(); // refresh updated profile
     } catch (error) {
       setError(
         "Error updating profile: " +
@@ -225,6 +242,63 @@ const InstructorSettings = () => {
       setLoading(false);
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError(null);
+  //   setSuccess(null);
+
+  //   const formDataToSend = new FormData();
+  //   let hasChanges = false;
+
+  //   for (const key in formData) {
+  //     if (formData[key] !== initialFormData[key]) {
+  //       formDataToSend.append(key, formData[key]);
+  //       hasChanges = true;
+  //     }
+  //   }
+  //   // Append photo file separately if it exists
+  //   // if (previewImage) {
+  //   //   formData.append("photo", previewImage);
+  //   // }
+  //   if (formData.photo instanceof File) {
+  //     formDataToSend.append("photo", formData.photo);
+  //     hasChanges = true;
+  //   }
+
+  //   if (!hasChanges) {
+  //     setLoading(false);
+  //     setSuccess("No changes to update.");
+  //     return;
+  //   }
+
+  //   try {
+  //     await axios.patch(
+  //       "https://api.novajobs.us/api/trainers/update-trainer-profile",
+  //       formDataToSend,
+  //       {
+  //         headers: {
+  //           Authorization: `${localStorage.getItem("trainerToken")}`,
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     setSuccess("Profile updated successfully.");
+  //     toast.success("Profile updated successfully.");
+  //     setInitialFormData({ ...formData, photo: null });
+  //     fetchUserData(); // Refresh the user data to show the updated photo
+  //   } catch (error) {
+  //     setError(
+  //       "Error updating profile: " +
+  //         (error.response?.data?.message || error.message)
+  //     );
+  //     toast.error("Error updating profile");
+  //     console.error("Error updating profile:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   console.log(error);
   console.log(success);
   return (
@@ -274,7 +348,7 @@ const InstructorSettings = () => {
                     <form onSubmit={handleSubmit}>
                       <div className="course-group profile-upload-group mb-0 d-flex">
                         <div className="course-group-img d-flex align-items-center">
-                          <a href="instructor-profile.html">
+                          <a href="/instructor/instructor-profiles">
                             {/* <img
                               src={photoPreview || formData.photo}
                               alt=""
