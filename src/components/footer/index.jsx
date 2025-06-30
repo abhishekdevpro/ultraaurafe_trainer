@@ -8,6 +8,9 @@ import logo5 from "../../assets/Ultra_Aura.png";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SupportPopup from "./SupportPopup.jsx";
+import logo1 from "./Duns-Logo1.png"
+import logo2 from "./Logo-2.png"
+import logo3 from "./Logo-3.png"
 // Styled Components
 const FooterWrapper = styled.footer`
   background-color: #f8f9fa;
@@ -324,7 +327,21 @@ const Footer = () => {
                   </p>
                 </FooterContactInfo>
                 <FooterLogo2>
-                  <img src="https://abhishekdevpro-nova-home-care-fe.vercel.app/assets/logo2-06lVAt2c.png" alt="" />
+                  <img
+                    src={logo1}
+                    alt=""
+                    style={{ width: "60px", height: "60px", objectFit: "contain" }}
+                  />
+                  <img
+                    src={logo2}
+                    alt=""
+                    style={{ width: "60px", height: "60px", objectFit: "contain" }}
+                  />
+                  <img
+                    src={logo3}
+                    alt=""
+                    style={{ width: "60px", height: "60px", objectFit: "contain" }}
+                  />
                 </FooterLogo2>
               </FooterWidget>
               <FooterWidget>
