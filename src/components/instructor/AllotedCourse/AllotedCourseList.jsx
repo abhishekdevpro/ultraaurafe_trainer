@@ -170,6 +170,8 @@ const AllotedCourseTable = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -210,6 +212,27 @@ const AllotedCourseTable = () => {
 
     fetchCourses();
   }, [navigate]);
+
+  const handleViewCourse = async (courseId) => {
+    const token = localStorage.getItem("trainerToken");
+
+    try {
+      const response = await axios.get(
+        `https://api.novajobs.us/api/students/course-details/${courseId}`,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      setSelectedCourse(response.data?.data || null);
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error fetching course details:", error);
+      setError("Failed to fetch course details.");
+    }
+  };
 
   return (
     <div className="instructor-course-table">
@@ -258,6 +281,7 @@ const AllotedCourseTable = () => {
                     </td>
                     <td>{course?.course_title || "Untitled"}</td>
                     <td>{course?.time_spent_on_course || "N/A"}</td>
+
                     {!localStorage.getItem("adminToken") && (
                       <td>
                         {course?.is_active === 1
@@ -267,6 +291,14 @@ const AllotedCourseTable = () => {
                           : "Unknown"}
                       </td>
                     )}
+                    <td>
+                      <button
+                        className="btn btn-sm btn-info"
+                        onClick={() => handleViewCourse(course.id)}
+                      >
+                        View
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
@@ -276,6 +308,49 @@ const AllotedCourseTable = () => {
               )}
             </tbody>
           </table>
+        </div>
+      )}
+      {showModal && selectedCourse && (
+        <div className="modal show d-block" tabIndex="-1" role="dialog">
+          <div className="modal-dialog modal-lg" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{selectedCourse.course_title}</h5>
+                <button
+                  type="button"
+                  className="close"
+                  onClick={() => setShowModal(false)}
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>
+                  <strong>Course ID:</strong> {selectedCourse.id}
+                </p>
+                <p>
+                  <strong>Description:</strong>{" "}
+                  {selectedCourse.course_description || "N/A"}
+                </p>
+                <p>
+                  <strong>Duration:</strong> {selectedCourse.duration || "N/A"}
+                </p>
+                <p>
+                  <strong>Status:</strong>{" "}
+                  {selectedCourse.is_active ? "Active" : "Inactive"}
+                </p>
+                {/* Add other fields as needed */}
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowModal(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>
