@@ -160,18 +160,38 @@
 // };
 
 // export default AllotedCourseTable;
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import dummy from "../../../assets/Online Course.png";
 import FullPageLoader from "../../home/FullPageLoader";
-
+import { ChevronDown, ChevronRight, Video } from "react-feather";
+import "./CourseContentModal.css";
 const AllotedCourseTable = () => {
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({});
+
+  const [videoModal, setVideoModal] = useState({ show: false, src: null });
+
+  const openVideoModal = (src) => {
+    setVideoModal({ show: true, src });
+  };
+
+  const closeVideoModal = () => {
+    setVideoModal({ show: false, src: null });
+  };
+
+  const toggleSection = (id) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   const navigate = useNavigate();
 
@@ -251,6 +271,7 @@ const AllotedCourseTable = () => {
                 <th>Title</th>
                 <th>Duration</th>
                 {!localStorage.getItem("adminToken") && <th>Status</th>}
+                <th>All Details</th>
               </tr>
             </thead>
             <tbody>
@@ -326,21 +347,77 @@ const AllotedCourseTable = () => {
               </div>
               <div className="modal-body">
                 <p>
-                  <strong>Course ID:</strong> {selectedCourse.id}
+                  <strong>Course ID:</strong> {selectedCourse.course_id}
+                </p>
+                <p>
+                  <strong>Title:</strong> {selectedCourse.course_title}
                 </p>
                 <p>
                   <strong>Description:</strong>{" "}
                   {selectedCourse.course_description || "N/A"}
                 </p>
                 <p>
-                  <strong>Duration:</strong> {selectedCourse.duration || "N/A"}
-                </p>
-                <p>
                   <strong>Status:</strong>{" "}
                   {selectedCourse.is_active ? "Active" : "Inactive"}
                 </p>
-                {/* Add other fields as needed */}
+                <p>
+                  <strong>Certificate Available:</strong>{" "}
+                  {selectedCourse.is_certificate ? "Yes" : "No"}
+                </p>
+
+                <hr />
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <h5 className="mb-0">Course Content</h5>
+                  <span className="text-muted">
+                    {selectedCourse.section_response?.length || 0} Sections
+                  </span>
+                </div>
+
+                {selectedCourse.section_response?.map((section, index) => (
+                  <div className="course-section" key={section.id}>
+                    <div
+                      className="course-section-header d-flex justify-content-between align-items-center"
+                      onClick={() => toggleSection(section.id)}
+                    >
+                      <strong>
+                        Section {index + 1} : {section.section_name}
+                      </strong>
+                      {expandedSections[section.id] ? (
+                        <ChevronDown size={18} />
+                      ) : (
+                        <ChevronRight size={18} />
+                      )}
+                    </div>
+
+                    {expandedSections[section.id] && (
+                      <div className="course-lecture-list">
+                        {section.lectures?.map((lecture) => (
+                          <div
+                            key={lecture.id}
+                            className="lecture-item d-flex justify-content-between align-items-center"
+                          >
+                            <div className="d-flex align-items-center gap-2">
+                              <Video size={16} />
+                              <span>{lecture.lecture_name}</span>
+                            </div>
+                            <button
+                              className="btn btn-sm btn-primary"
+                              onClick={() =>
+                                openVideoModal(
+                                  `https://api.novajobs.us${lecture.lecture_location}`
+                                )
+                              }
+                            >
+                              Preview
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
+
               <div className="modal-footer">
                 <button
                   className="btn btn-secondary"
@@ -348,6 +425,39 @@ const AllotedCourseTable = () => {
                 >
                   Close
                 </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {videoModal.show && (
+        <div
+          className="modal show d-block"
+          tabIndex="-1"
+          role="dialog"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div
+            className="modal-dialog modal-lg modal-dialog-centered"
+            role="document"
+          >
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Lecture Preview</h5>
+                <button
+                  type="button"
+                  className="close"
+                  onClick={closeVideoModal}
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <video
+                  controls
+                  src={videoModal.src}
+                  className="w-100 rounded"
+                />
               </div>
             </div>
           </div>
