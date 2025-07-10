@@ -3,10 +3,13 @@ import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import Select from "react-select";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import ZoomMeetingModal from "./ZoomMeetingModal";
+// import { Link } from "react-router-dom";
 // import { Copy } from "lucide-react";
 
 const TrainerLiveClassTable = () => {
+  const navigate = useNavigate();
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +23,7 @@ const TrainerLiveClassTable = () => {
   const [isCoursesLoaded, setIsCoursesLoaded] = useState(false);
   const [editingClassId, setEditingClassId] = useState(null);
   const [activeMeetingUrl, setActiveMeetingUrl] = useState("");
-  const [passcode, setPasscode] = useState("");
+  // const [passcode, setPasscode] = useState("");
 
   const trainerToken = localStorage.getItem("trainerToken");
   console.log(isCoursesLoaded);
@@ -50,6 +53,17 @@ const TrainerLiveClassTable = () => {
       setError("Failed to fetch data. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleJoin = (liveClass) => {
+    if (liveClass.meeting_join_url) {
+      // Navigate to ScheduleMeeting page with the meeting URL
+      navigate("/instructor/schedule-meeting", {
+        state: { meetingUrl: liveClass.meeting_join_url },
+      });
+    } else {
+      toast.error("Meeting URL not available");
     }
   };
 
@@ -157,47 +171,47 @@ const TrainerLiveClassTable = () => {
     }
   };
 
-  const handleJoin = (liveClass) => {
-    console.log(liveClass, "lc");
+  // const handleJoin = (liveClass) => {
+  //   console.log(liveClass, "lc");
 
-    // Parse meeting information
-    const meetingInfoString = liveClass.meeting_info;
-    let meetingInfo;
-    try {
-      meetingInfo = JSON.parse(meetingInfoString);
-    } catch (error) {
-      console.error("Invalid meeting info format", error);
-      alert("Invalid meeting info format. Please try again.");
-      return;
-    }
+  //   // Parse meeting information
+  //   const meetingInfoString = liveClass.meeting_info;
+  //   let meetingInfo;
+  //   try {
+  //     meetingInfo = JSON.parse(meetingInfoString);
+  //   } catch (error) {
+  //     console.error("Invalid meeting info format", error);
+  //     alert("Invalid meeting info format. Please try again.");
+  //     return;
+  //   }
 
-    const meetingId = liveClass.meeting_id;
-    const passcode = meetingInfo.password || "";
-    console.log(passcode, "mai hu ");
-    console.log(meetingInfo.pwd, "mai hu pwd ");
+  //   const meetingId = liveClass.meeting_id;
+  //   const passcode = meetingInfo.password || "";
+  //   console.log(passcode, "mai hu ");
+  //   console.log(meetingInfo.pwd, "mai hu pwd ");
 
-    if (!meetingId) {
-      toast.error("Meeting ID is missing. Please check the meeting details.");
-      return;
-    }
+  //   if (!meetingId) {
+  //     toast.error("Meeting ID is missing. Please check the meeting details.");
+  //     return;
+  //   }
 
-    if (!passcode) {
-      console.log(passcode, "mai hu passcode");
-      toast.error(
-        "Invalid user or missing password for the meeting. Please check the credentials."
-      );
-      return;
-    }
+  //   if (!passcode) {
+  //     console.log(passcode, "mai hu passcode");
+  //     toast.error(
+  //       "Invalid user or missing password for the meeting. Please check the credentials."
+  //     );
+  //     return;
+  //   }
 
-    setPasscode(passcode);
+  //   setPasscode(passcode);
 
-    // Construct the Zoom meeting URL
-    const zoomUrl = `https://zoom.us/wc/${meetingId}/join?pwd=${passcode}`;
-    console.log(zoomUrl, "mai hu zoom");
-    // setActiveMeetingUrl(zoomUrl);
-    // setShowMeetingModal(true);
-    window.open(zoomUrl, "_blank");
-  };
+  //   // Construct the Zoom meeting URL
+  //   const zoomUrl = `https://zoom.us/wc/${meetingId}/join?pwd=${passcode}`;
+  //   console.log(zoomUrl, "mai hu zoom");
+  //   // setActiveMeetingUrl(zoomUrl);
+  //   // setShowMeetingModal(true);
+  //   window.open(zoomUrl, "_blank");
+  // };
 
   const handleMeetingClose = () => {
     setShowMeetingModal(false);
@@ -304,7 +318,7 @@ const TrainerLiveClassTable = () => {
         showMeetingModal={showMeetingModal}
         handleMeetingClose={handleMeetingClose}
         activeMeetingUrl={activeMeetingUrl}
-        passcode={passcode}
+        // passcode={passcode}
       />
 
       <Modal show={show} onHide={handleClose} centered>

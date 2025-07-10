@@ -175,6 +175,7 @@ import Gauth from "./components/pages/login/G-auth.jsx";
 import LoginCode from "./components/pages/login/LoginCode.jsx";
 import LoginWithPassword from "./components/pages/login/loginwithpassword.jsx";
 import AllotedCourses from "./components/instructor/AllotedCourse/index.js";
+import ScheduleMeeting from "./components/instructor/LiveClasses/ScheduleMeeting.jsx";
 
 const Approuter = () => {
   const trainerToken = localStorage.getItem("trainerToken");
@@ -345,7 +346,10 @@ const Approuter = () => {
             path="/instructor/schedule-live-class"
             element={<ScheduleLiveClass />}
           />
-
+          <Route
+            path="/instructor/schedule-meeting"
+            element={<ScheduleMeeting />}
+          />
           <Route
             path="/instructor/instructor-payouts"
             element={<InstructorPayouts />}
