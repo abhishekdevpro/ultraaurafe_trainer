@@ -176,11 +176,13 @@ import LoginCode from "./components/pages/login/LoginCode.jsx";
 import LoginWithPassword from "./components/pages/login/loginwithpassword.jsx";
 import AllotedCourses from "./components/instructor/AllotedCourse/index.js";
 import ScheduleMeeting from "./components/instructor/LiveClasses/ScheduleMeeting.jsx";
+import GoogleOneTapLogin from "./components/GoogleOneTapLogin.jsx";
 
 const Approuter = () => {
   const trainerToken = localStorage.getItem("trainerToken");
   return (
     <BrowserRouter>
+      <GoogleOneTapLogin />
       <Routes>
         <Route
           path="/"
