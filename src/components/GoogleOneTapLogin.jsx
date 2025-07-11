@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const googleOneTapLogin = async ({ token }) => {
-  const path = `https://api.novajobs.us/api/students/google-one-tap-login`;
+  const path = `https://api.novajobs.us/api/trainers/google-one-tap-login`;
   const res = await axios.post(path, { token });
   return res;
 };
